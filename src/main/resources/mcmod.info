@@ -1,0 +1,17 @@
+[
+{
+  "modid": "Pirat Mod",
+  "name": "Piret Mod",
+  "description": "nog te schrijven",
+  "version": "",
+  "credits": "thaks idieots",
+  "logoFile": "",
+  "mcversion": "",
+  "url": "http://www.mainserverjt.somting",
+  "updateUrl": "http://update.mainserverjt.somting",
+  "authors": ["Joris claes", "tom claes"],
+  "parent":""
+  "screenshots": [],
+  "dependencies": []
+}
+]
