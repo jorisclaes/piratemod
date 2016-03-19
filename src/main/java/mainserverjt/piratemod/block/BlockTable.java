@@ -29,7 +29,7 @@ public class BlockTable extends Block {
 		setLightLevel(0.3F);//zet hoeveel licht de block afgeeft van 0.0 tot 1.0
 		setLightOpacity(5);//zecht hoeveel lich er mag doorgelaten worden, geen is 16 en hoe minder hoe meer licht er door gaat
 		setStepSound(this.soundTypeAnvil);//zet het geluit van de block als je hem plaats of breekt
-		
+		this.setHardness(1.0F);//hardness van block duhhhh
 	}
 	
 	public void BlockRegiserResepe(){
