@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 
 public class SampleCommand implements ICommand {
@@ -32,7 +33,7 @@ public class SampleCommand implements ICommand {
 
 	@Override
 	public String getCommandUsage(ICommandSender sender) {
-		return "pirateMod <var>";
+		return this.name + " <txt>";
 	}
 
 	@Override
@@ -40,25 +41,25 @@ public class SampleCommand implements ICommand {
 		return this.commands;
 	}
 
+	//nog wat info bij http://jabelarminecraft.blogspot.be/p/minecraft-forge-172.html
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) {
-		if (sender instanceof EntityPlayer) {
-			sender.func_145748_c_().appendText("player");
-			EntityPlayer p = ((EntityPlayer) sender);
-		} else {
-			sender.func_145748_c_().appendText("player command only");
-		}
+		if(args.length == 0)
+	    {
+	      sender.addChatMessage(new ChatComponentText("hetwerkt"));
+	      return;
+	    }
+	    
+		sender.addChatMessage(new ChatComponentText("Conjuring: [" + args[0] + "]"));
 	}
 
 	@Override
 	public boolean canCommandSenderUseCommand(ICommandSender p_71519_1_) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public List addTabCompletionOptions(ICommandSender p_71516_1_, String[] p_71516_2_) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

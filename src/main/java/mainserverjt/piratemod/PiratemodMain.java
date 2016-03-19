@@ -99,11 +99,8 @@ public class PiratemodMain {
 		@Override
 		public Item getTabIconItem() {
 			return new ItemStack(itemTable).getItem();
-			// veran itemtable met een fatsoenlijk logo
+			// verander itemtable met een fatsoenlijk logo
 		}
 
 	};
-	
-	@SidedProxy(clientSide = "stargazer.minecraft.samples.common.ClientProxy", serverSide = "stargazer.minecraft.samples.common.CommonProxy")
-	public static Commons proxy;
 }
