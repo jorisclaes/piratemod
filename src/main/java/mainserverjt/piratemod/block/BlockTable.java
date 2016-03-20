@@ -2,8 +2,6 @@ package mainserverjt.piratemod.block;
 
 import java.util.Random;
 
-import com.sun.corba.se.impl.naming.pcosnaming.ServantManagerImpl;
-
 import cpw.mods.fml.common.registry.GameRegistry;
 import mainserverjt.piratemod.PiratemodMain;
 import net.minecraft.block.Block;

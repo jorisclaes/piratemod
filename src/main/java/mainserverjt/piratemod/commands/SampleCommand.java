@@ -3,9 +3,9 @@ package mainserverjt.piratemod.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import mainserverjt.piratemod.PiratemodMain;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 
@@ -22,7 +22,6 @@ public class SampleCommand implements ICommand {
 
 	@Override
 	public int compareTo(Object o) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -46,11 +45,11 @@ public class SampleCommand implements ICommand {
 	public void processCommand(ICommandSender sender, String[] args) {
 		if(args.length == 0)
 	    {
-	      sender.addChatMessage(new ChatComponentText("hetwerkt"));
+	      sender.addChatMessage(new ChatComponentText("het werkt"));
 	      return;
 	    }
 	    
-		sender.addChatMessage(new ChatComponentText("Conjuring: [" + args[0] + "]"));
+		sender.addChatMessage(new ChatComponentText(PiratemodMain.modID + ": [" + args[0] + "]"));
 	}
 
 	@Override
@@ -65,7 +64,6 @@ public class SampleCommand implements ICommand {
 
 	@Override
 	public boolean isUsernameIndex(String[] p_82358_1_, int p_82358_2_) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
