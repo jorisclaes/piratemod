@@ -21,7 +21,7 @@ public class CookySword extends ItemSword {
 		super(mat);
 		setUnlocalizedName(name);
 		GameRegistry.registerItem(this, name);
-		//setTextureName(PiratemodMain.modID + ":" + name);
+		setTextureName(PiratemodMain.modID + ":" + name);
 		setCreativeTab(PiratemodMain.tab);
 		
 	}

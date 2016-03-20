@@ -11,7 +11,7 @@ import net.minecraftforge.common.util.EnumHelper;
 
 public class ItemTable extends ItemSpade {
 	
-	private static final String name= "ItemTable";
+	private static final String name= "ItemSpade";
 	private static int harvestLevel = 4; //dit zecht wat je kan harvesten
 	private static int maxUses = 2000;//hoe hoger hoelanger hij megaat saat voor blok gemied of mob gehit
 	private static float efficiency = 20.0F;//zegdt hoeveel hij blockt

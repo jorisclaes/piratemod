@@ -17,8 +17,8 @@ public class Armor extends ItemArmor {
 	private static int enchantability = 30;//zet iest wat bu
 	private static final ArmorMaterial mat = EnumHelper.addArmorMaterial("Armor Mat", durability, reductionAmounts, enchantability);
 	private static final String url = PiratemodMain.modID + ":textures/models/armor/";
-	private static final String leggingsFileName = "";//somting .png
-	private static final String restArmorFileName = "";//somting .png
+	private static final String leggingsFileName = "cheese_layer_2.png";//somting .png
+	private static final String restArmorFileName = "cheese_layer_1.png";//somting .png
 	
 	
 	public Armor(String name, int renderIndex, int armorType) {
@@ -34,6 +34,6 @@ public class Armor extends ItemArmor {
 			if(armorType == 2){
 				return url + leggingsFileName;
 			}
-			return url + renderIndex;
+			return url + restArmorFileName;
 	}
 }
