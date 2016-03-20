@@ -1,17 +1,19 @@
 [
 {
-  "modid": "Pirat Mod",
-  "name": "Piret Mod",
-  "description": "nog te schrijven",
-  "version": "",
-  "credits": "thaks idieots",
-  "logoFile": "",
-  "mcversion": "",
-  "url": "http://www.mainserverjt.somting",
-  "updateUrl": "http://update.mainserverjt.somting",
-  "authors": ["Joris claes", "tom claes"],
-  "parent":""
-  "screenshots": [],
-  "dependencies": []
+"modid": "pm1994",
+"name": "Pirate Mod",
+"description": "Doet Iets",
+"version": "0.0.1",
+"credits": "",
+"logoFile": "",
+"mcversion": "1.7.10",
+"url": "http://www.mainserverjt.iets/",
+"updateUrl": "",
+"authorList": [ "Joris Claes", "Tom Claes" ],
+"parent":"",
+"screenshots": [],
+"dependencies": [
+"mod_MinecraftForge"
+]
 }
 ]

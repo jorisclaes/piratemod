@@ -7,6 +7,7 @@ import mainserverjt.piratemod.PiratemodMain;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatStyle;
 import net.minecraft.util.IChatComponent;
 
 public class SampleCommand implements ICommand {
@@ -49,7 +50,7 @@ public class SampleCommand implements ICommand {
 	      return;
 	    }
 	    
-		sender.addChatMessage(new ChatComponentText(PiratemodMain.modID + ": [" + args[0] + "]"));
+		sender.addChatMessage(new ChatComponentText(PiratemodMain.modName + ": [" + args[0] + "]"));
 	}
 
 	@Override

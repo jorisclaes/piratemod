@@ -29,6 +29,7 @@ import net.minecraft.item.ItemStack;
 public class PiratemodMain {
 
 	public final static String modID = "pm1994";
+	public final static String modName = "Pirate Mod";
 
 	// items
 	public static Item itemTable;
