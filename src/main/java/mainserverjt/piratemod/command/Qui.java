@@ -44,7 +44,7 @@ public class Qui {
 							for(Object ob : list){
 								EntityPlayer p = (EntityPlayer) ob;
 								if(p.getDisplayName().equals(naam)){
-									main.commandMain.sendMassage(p, "Uw groep is verwijderd");
+									main.commandMain.sendGreenMassage(p, "Uw groep is verwijderd");
 								}
 							}
 						}
@@ -59,6 +59,10 @@ public class Qui {
 	
 	protected void clean() {
 		groeppen.clear();
+	}
+	
+	protected ArrayList getGroeppen(){
+		return groeppen;
 	}
 
 }

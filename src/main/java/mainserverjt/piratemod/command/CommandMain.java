@@ -3,6 +3,7 @@ package mainserverjt.piratemod.command;
 import java.util.ArrayList;
 import java.util.List;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import mainserverjt.piratemod.Main;
 import net.minecraft.command.ICommand;
@@ -61,9 +62,15 @@ public class CommandMain implements ICommand{
 	public void processCommand(ICommandSender p_71515_1_, String[] p_71515_2_) {
 		if(p_71515_2_.length != 0){
 			if(p_71515_2_[0].equalsIgnoreCase("status")){
+				if(p_71515_2_.length == 2){
+					if(p_71515_2_[1].equalsIgnoreCase("list")){
+						status.listComands(p_71515_1_);
+						return;
+					}
+				}
 				p_71515_1_.addChatMessage(new ChatComponentText(status.getStatus(p_71515_1_,p_71515_2_)));
 			}else if(p_71515_2_[0].equalsIgnoreCase("register")){
-				registerHelper.addGroup(p_71515_1_, p_71515_2_);
+					registerHelper.addGroup(p_71515_1_, p_71515_2_);
 			}else if(p_71515_2_[0].equalsIgnoreCase("remove")){
 				registerHelper.removeGroep(p_71515_1_, p_71515_2_[1]);
 			}else
@@ -111,8 +118,25 @@ public class CommandMain implements ICommand{
 		p_71515_1_.addChatMessage(text);
 	}
 
+	protected void sendGreenMassage(ICommandSender p_71515_1_, String string) {
+		ChatComponentText text = new ChatComponentText("[PirateMod] " + string);
+		ChatStyle s = new ChatStyle();
+		s.setColor(EnumChatFormatting.GREEN);
+		text.setChatStyle(s);
+		p_71515_1_.addChatMessage(text);
+	}
+	
 	protected void sendMassage(ICommandSender p_71515_1_, String string) {
 		ChatComponentText text = new ChatComponentText("[PirateMod] " + string);
 		p_71515_1_.addChatMessage(text);
 	}
+	
+	protected void sendBrodcastMesage(String masage){
+		ChatComponentText text = new ChatComponentText("[PirateMod] " + masage);
+		ChatStyle style = new ChatStyle();
+		style.setColor(EnumChatFormatting.LIGHT_PURPLE);
+		text.setChatStyle(style);
+		FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().sendChatMsg(text);
+	}
+	
 }

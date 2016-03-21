@@ -51,8 +51,8 @@ public class RegisterHelper {
 						}
 						if(gevonden){
 							gevonden = false;
-							main.commandMain.sendMassage(p, player.getDisplayName() + " heeft je toegevoegd aan groep " + p_71515_2_[1]);
-							main.commandMain.sendMassage(p, "remove groep met mp remove <groepnaam>");
+							main.commandMain.sendGreenMassage(p, player.getDisplayName() + " heeft je toegevoegd aan groep " + p_71515_2_[1]);
+							main.commandMain.sendGreenMassage(p, "remove groep met mp remove <groepnaam>");
 						}else if (tel != 0){
 							main.commandMain.sendError(p_71515_1_, "Player " + naam + " is niet online");
 							return;
@@ -77,7 +77,7 @@ public class RegisterHelper {
 				EntityPlayer player = (EntityPlayer) sender;
 				boolean flag = main.commandMain.qui.removeGroep(sender, groepnaam);
 				if(flag){
-					main.commandMain.sendMassage(sender, "Goup removed");
+					main.commandMain.sendGreenMassage(sender, "Goup removed");
 				}else{
 					main.commandMain.sendError(sender, "Goep not found");
 				}
