@@ -25,7 +25,7 @@ import voorbeeld.mainserverjt.piratemod.items.CookySchovel;
 import voorbeeld.mainserverjt.piratemod.items.ItemTable;
 import voorbeeld.mainserverjt.piratemod.weapons.CookySword;
 
-@Mod(modid = "pm1994", name = "Pirate Mod", version = "0.0.1 pre_Alpha !!experimental!!")
+//@Mod(modid = "pm1994", name = "Pirate Mod", version = "0.0.1 pre_Alpha !!experimental!!")
 public class PiratemodMain {
 
 	public final static String modID = "pm1994";
@@ -53,7 +53,7 @@ public class PiratemodMain {
 	public static Item lagges;
 	public static Item bootys;
 
-	@EventHandler
+	//@EventHandler
 	public void preInit(FMLPreInitializationEvent evt) {
 		// init van items, block, registeren van allses
 		// config handling
@@ -78,7 +78,7 @@ public class PiratemodMain {
 
 	}
 
-	@EventHandler
+	//@EventHandler
 	public void init(FMLInitializationEvent evt) {
 		// proxy, tileEntiy, gui and alle classes init$
 
@@ -88,14 +88,14 @@ public class PiratemodMain {
 		GameRegistry.addSmelting(coocie, new ItemStack(gesmolte_coocky), 5.0F);
 	}
 
-	@EventHandler
+	//@EventHandler
 	public void serverLoad(FMLServerStartingEvent event) {
 		event.registerServerCommand(new SampleCommand());
 	}
 
 	public static CreativeTabs tab = new CreativeTabs(modID) {
 
-		@Override
+		//@Override
 		public Item getTabIconItem() {
 			return new ItemStack(itemTable).getItem();
 			// verander itemtable met een fatsoenlijk logo
