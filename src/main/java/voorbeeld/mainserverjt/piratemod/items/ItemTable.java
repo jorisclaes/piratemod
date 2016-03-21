@@ -1,13 +1,13 @@
-package mainserverjt.piratemod.items;
+package voorbeeld.mainserverjt.piratemod.items;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import mainserverjt.piratemod.PiratemodMain;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
+import voorbeeld.mainserverjt.piratemod.PiratemodMain;
 
 public class ItemTable extends ItemSpade {
 	

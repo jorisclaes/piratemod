@@ -1,4 +1,4 @@
-package mainserverjt.piratemod;
+package voorbeeld.mainserverjt.piratemod;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -8,15 +8,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-import mainserverjt.piratemod.armor.Armor;
-import mainserverjt.piratemod.block.BlockTable;
-import mainserverjt.piratemod.commands.SampleCommand;
-import mainserverjt.piratemod.food.Cooky;
-import mainserverjt.piratemod.food.GesmoletenCooky;
-import mainserverjt.piratemod.generators.CookyGeneration;
-import mainserverjt.piratemod.items.CookySchovel;
-import mainserverjt.piratemod.items.ItemTable;
-import mainserverjt.piratemod.weapons.CookySword;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,6 +15,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import voorbeeld.mainserverjt.piratemod.armor.Armor;
+import voorbeeld.mainserverjt.piratemod.block.BlockTable;
+import voorbeeld.mainserverjt.piratemod.commands.SampleCommand;
+import voorbeeld.mainserverjt.piratemod.food.Cooky;
+import voorbeeld.mainserverjt.piratemod.food.GesmoletenCooky;
+import voorbeeld.mainserverjt.piratemod.generators.CookyGeneration;
+import voorbeeld.mainserverjt.piratemod.items.CookySchovel;
+import voorbeeld.mainserverjt.piratemod.items.ItemTable;
+import voorbeeld.mainserverjt.piratemod.weapons.CookySword;
 
 @Mod(modid = "pm1994", name = "Pirate Mod", version = "0.0.1 pre_Alpha !!experimental!!")
 public class PiratemodMain {

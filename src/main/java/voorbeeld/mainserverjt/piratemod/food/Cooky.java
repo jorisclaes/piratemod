@@ -1,9 +1,9 @@
-package mainserverjt.piratemod.food;
+package voorbeeld.mainserverjt.piratemod.food;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import mainserverjt.piratemod.PiratemodMain;
 import net.minecraft.item.ItemFood;
 import scala.reflect.internal.TreeInfo.SeeThroughBlocks;
+import voorbeeld.mainserverjt.piratemod.PiratemodMain;
 
 public class Cooky extends ItemFood{
 	

@@ -1,9 +1,9 @@
-package mainserverjt.piratemod.food;
+package voorbeeld.mainserverjt.piratemod.food;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import mainserverjt.piratemod.PiratemodMain;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import voorbeeld.mainserverjt.piratemod.PiratemodMain;
 
 public class GesmoletenCooky extends ItemFood{
 	

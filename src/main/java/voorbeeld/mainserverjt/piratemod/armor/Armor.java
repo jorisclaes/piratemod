@@ -1,13 +1,13 @@
-package mainserverjt.piratemod.armor;
+package voorbeeld.mainserverjt.piratemod.armor;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import mainserverjt.piratemod.PiratemodMain;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
+import voorbeeld.mainserverjt.piratemod.PiratemodMain;
 
 public class Armor extends ItemArmor {
 

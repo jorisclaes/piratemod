@@ -1,16 +1,16 @@
-package mainserverjt.piratemod.generators;
+package voorbeeld.mainserverjt.piratemod.generators;
 
 import java.util.Random;
 
 import javax.swing.JOptionPane;
 
 import cpw.mods.fml.common.IWorldGenerator;
-import mainserverjt.piratemod.PiratemodMain;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import voorbeeld.mainserverjt.piratemod.PiratemodMain;
 
 public class CookyGeneration implements IWorldGenerator{
 

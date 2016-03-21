@@ -1,15 +1,15 @@
-package mainserverjt.piratemod.block;
+package voorbeeld.mainserverjt.piratemod.block;
 
 import java.util.Random;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import mainserverjt.piratemod.PiratemodMain;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import voorbeeld.mainserverjt.piratemod.PiratemodMain;
 
 public class BlockTable extends Block {
 	

@@ -1,10 +1,10 @@
-package mainserverjt.piratemod.weapons;
+package voorbeeld.mainserverjt.piratemod.weapons;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import mainserverjt.piratemod.PiratemodMain;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSword;
 import net.minecraftforge.common.util.EnumHelper;
+import voorbeeld.mainserverjt.piratemod.PiratemodMain;
 
 public class CookySword extends ItemSword {
 	
