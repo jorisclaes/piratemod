@@ -1,36 +1,26 @@
 package mainserverjt.piratemod.command;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import mainserverjt.piratemod.Main;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IChatComponent;
 
-public class CommandMain implements ICommand{
-	
-	private final Main main;
-	protected CommandStatus status;
-	protected RegisterHelper registerHelper;
-	protected Qui qui;
-	private String[] commands = {"status", "register", "remove"};
-	
-	public CommandMain(Main main, FMLServerStartingEvent event){
+public class CommandMain implements ICommand {
+	public Main main;
+	private List commands;
+
+	public CommandMain(Main main, FMLServerStartingEvent event) {
 		this.main = main;
-		status = new CommandStatus(main);
-		registerHelper = new RegisterHelper(main);
-		qui = new Qui(main);
-		this.regisreCommands(event);
-	}
-
-	private void regisreCommands(FMLServerStartingEvent event) {
-		event.registerServerCommand(this);
+		event.registerServerCommand((ICommand) this);
+		this.commands = new ArrayList();
+		this.commands.add("pirateMod");
+		this.commands.add("pm");
 	}
 
 	@Override
@@ -41,60 +31,30 @@ public class CommandMain implements ICommand{
 
 	@Override
 	public String getCommandName() {
-		return "Pirate Mod";
+		// TODO Auto-generated method stub
+		return "pm";
 	}
 
 	@Override
 	public String getCommandUsage(ICommandSender p_71518_1_) {
-		return "PiretMod <var>";
+		// TODO Auto-generated method stub
+		return "pm";
 	}
 
 	@Override
 	public List getCommandAliases() {
-		List list = new ArrayList();
-		list.add("Pirate Mod");
-		list.add("pm");
-		list.add("p");
-		return list;
+		// TODO Auto-generated method stub
+		return this.commands;
 	}
 
 	@Override
 	public void processCommand(ICommandSender p_71515_1_, String[] p_71515_2_) {
-		if(p_71515_2_.length != 0){
-			if(p_71515_2_[0].equalsIgnoreCase("status")){
-				if(p_71515_2_.length == 2){
-					if(p_71515_2_[1].equalsIgnoreCase("list")){
-						status.listComands(p_71515_1_);
-						return;
-					}
-				}
-				p_71515_1_.addChatMessage(new ChatComponentText(status.getStatus(p_71515_1_,p_71515_2_)));
-			}else if(p_71515_2_[0].equalsIgnoreCase("register")){
-					registerHelper.addGroup(p_71515_1_, p_71515_2_);
-			}else if(p_71515_2_[0].equalsIgnoreCase("remove")){
-				registerHelper.removeGroep(p_71515_1_, p_71515_2_[1]);
-			}else
-			{
-				String temp = "";
-				for(String s : commands){
-					temp += s + " ";
-				}
-				p_71515_1_.addChatMessage(new ChatComponentText(temp));
-			}
-		}else{
-			p_71515_1_.addChatMessage(new ChatComponentText("Use pm list for commands"));
-		}
+		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public boolean canCommandSenderUseCommand(ICommandSender p_71519_1_) {
-		if(p_71519_1_ instanceof EntityPlayer){
-			EntityPlayer player = (EntityPlayer) p_71519_1_;
-			if(player.canCommandSenderUseCommand(4, "PirateMod.use.status.*")){
-				return true;
-			}
-			return false;
-		}
+		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -109,34 +69,5 @@ public class CommandMain implements ICommand{
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	protected void sendError(ICommandSender p_71515_1_, String string) {
-		ChatComponentText text = new ChatComponentText("[PirateMod] " + string);
-		ChatStyle style = new ChatStyle();
-		style.setColor(EnumChatFormatting.RED);
-		text.setChatStyle(style);
-		p_71515_1_.addChatMessage(text);
-	}
 
-	protected void sendGreenMassage(ICommandSender p_71515_1_, String string) {
-		ChatComponentText text = new ChatComponentText("[PirateMod] " + string);
-		ChatStyle s = new ChatStyle();
-		s.setColor(EnumChatFormatting.GREEN);
-		text.setChatStyle(s);
-		p_71515_1_.addChatMessage(text);
-	}
-	
-	protected void sendMassage(ICommandSender p_71515_1_, String string) {
-		ChatComponentText text = new ChatComponentText("[PirateMod] " + string);
-		p_71515_1_.addChatMessage(text);
-	}
-	
-	protected void sendBrodcastMesage(String masage){
-		ChatComponentText text = new ChatComponentText("[PirateMod] " + masage);
-		ChatStyle style = new ChatStyle();
-		style.setColor(EnumChatFormatting.LIGHT_PURPLE);
-		text.setChatStyle(style);
-		FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().sendChatMsg(text);
-	}
-	
 }
