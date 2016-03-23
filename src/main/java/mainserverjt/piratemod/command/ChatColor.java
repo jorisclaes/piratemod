@@ -32,6 +32,9 @@ public class ChatColor {
 	public static final String geel = ";6$";
 	private static final int id_geel = 6;
 	
+	public static final String donker_blauw = ";7$";
+	private static final int id_donker_blauw = 7;
+	
 	//public static final String fake = ";50$";
 
 	public static void sendColorMessage(ICommandSender p_71515_1_, String message){
@@ -94,6 +97,13 @@ public class ChatColor {
 				text = new ChatComponentText(s);
 				style = new ChatStyle();
 				style.setColor(EnumChatFormatting.YELLOW);
+				text.setChatStyle(style);
+				textM.appendSibling(text);
+				break;
+			case id_donker_blauw:
+				text = new ChatComponentText(s);
+				style = new ChatStyle();
+				style.setColor(EnumChatFormatting.DARK_BLUE);
 				text.setChatStyle(style);
 				textM.appendSibling(text);
 				break;
