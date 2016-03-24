@@ -50,9 +50,10 @@ public class Qui {
 	 * returnt -1 als de goep of iemand in de groep al eder voorkomt
 	 * @param pesonen ICommandSender[]
 	 * @param groepnaam String
+	 * @param sender de persoon die iedereen heeft toegevoegt
 	 * @return return true als het gelukt is
 	 */
-	public boolean addGroep(ICommandSender[] personen, String groepnaam){
+	public boolean addGroep(ICommandSender[] personen, String groepnaam, ICommandSender sender){
 		if (!groepen.containsKey(groepnaam)){
 			for(ICommandSender[] g : groepen.values()){
 				for(ICommandSender p : g){
@@ -65,6 +66,9 @@ public class Qui {
 					}
 				}
 			}
+			groepen.put(groepnaam, personen);
+			String text = color.prefix + "U Have Bin Added To Group " + color.groen + color.wit + " By " + color.groen + sender.getCommandSenderName();
+			color.sendPrivateMessageToMultiple(personen, text);
 			return true;
 		}
 		return false;
