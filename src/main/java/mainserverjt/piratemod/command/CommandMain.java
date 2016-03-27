@@ -8,6 +8,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import mainserverjt.piratemod.Main;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.IChatComponent;
 
@@ -51,6 +52,7 @@ public class CommandMain implements ICommand {
 	public void processCommand(ICommandSender p_71515_1_, String[] p_71515_2_) {
 		// TODO Auto-generated method stub
 		ChatColor.sendPrivateMessage(p_71515_1_, "test");
+		((EntityPlayer)p_71515_1_).getUniqueID();
 	}
 
 	@Override

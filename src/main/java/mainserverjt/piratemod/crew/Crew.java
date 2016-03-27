@@ -8,12 +8,12 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class Crew {
 
-	private EntityPlayer[] personen;
-	private int id;
+	private Pirate[] personen;
+	private final int id;
 	private Main main;
 	private int rank;
 	private double gemiddeldeXpLvl;
-	private int funding;
+	private double funding;
 	
 	
 	
@@ -25,7 +25,7 @@ public class Crew {
 	 * @param crewid id van crew
 	 * @param personen de lijst van personen behoordende tot de crew
 	 */
-	public Crew(Main main,int crewid, EntityPlayer[] personen){
+	public Crew(Main main,int crewid, Pirate[] personen){
 		this.main = main;
 		id = crewid;
 		this.personen = personen;
@@ -74,7 +74,7 @@ public class Crew {
 	 * return funding word gebruikt voor upgreads te kopen (weapon en ship)
 	 * @return funding las intger
 	 */
-	public int getFunding() {
+	public double getFunding() {
 		return funding;
 	}
 
@@ -85,4 +85,22 @@ public class Crew {
 	public void setFunding(int funding) {
 		this.funding = funding;
 	}
+
+	/**
+	 * returnt de piraten in deze Crew
+	 * @return een groep van Pirate
+	 */
+	public Pirate[] getPersonen() {
+		return personen;
+	}
+
+	/**
+	 * returnt id van de Crew
+	 * @return als int
+	 */
+	public final int getId() {
+		return id;
+	}
+	
+	
 }
