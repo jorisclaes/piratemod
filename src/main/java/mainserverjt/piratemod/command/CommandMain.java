@@ -50,6 +50,7 @@ public class CommandMain implements ICommand {
 	@Override
 	public void processCommand(ICommandSender p_71515_1_, String[] p_71515_2_) {
 		// TODO Auto-generated method stub
+		ChatColor.sendPrivateMessage(p_71515_1_, "test");
 	}
 
 	@Override
