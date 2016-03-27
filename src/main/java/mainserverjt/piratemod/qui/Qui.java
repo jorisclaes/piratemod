@@ -13,6 +13,7 @@ public class Qui {
 	
 	public Main main;
 	private HashMap<String, ICommandSender[]> groepen;
+	private HashMap<String, Integer> clanId;
 	private static ChatColor color;
 	
 	private boolean quiInschrijvingenOpen;
@@ -22,6 +23,7 @@ public class Qui {
 	public Qui(Main main){
 		this.main = main;
 		groepen = new HashMap<String, ICommandSender[]>();
+		clanId = new HashMap<String, Integer>();
 		timerOpen = 20;//in sec
 		timer = new Timer(main);
 	}
@@ -47,13 +49,14 @@ public class Qui {
 	/**
 	 * zet de personen in een groep
 	 * 
-	 * returnt -1 als de goep of iemand in de groep al eder voorkomt
+	 * returnt false als de goep of iemand in de groep al eder voorkomt
 	 * @param pesonen ICommandSender[]
 	 * @param groepnaam String
 	 * @param sender de persoon die iedereen heeft toegevoegt
+	 * @param clanId is het id van de clan waar de personen in zitten
 	 * @return return true als het gelukt is
 	 */
-	public boolean addGroep(ICommandSender[] personen, String groepnaam, ICommandSender sender){
+	public boolean addGroep(ICommandSender[] personen, String groepnaam, ICommandSender sender, int clanID){
 		if (!groepen.containsKey(groepnaam)){
 			for(ICommandSender[] g : groepen.values()){
 				for(ICommandSender p : g){
@@ -67,6 +70,7 @@ public class Qui {
 				}
 			}
 			groepen.put(groepnaam, personen);
+			clanId.put(groepnaam, clanID);
 			String text = color.prefix + "U Have Bin Added To Group " + color.groen + color.wit + " By " + color.groen + sender.getCommandSenderName();
 			color.sendPrivateMessageToMultiple(personen, text);
 			return true;
@@ -78,12 +82,13 @@ public class Qui {
 	 * verwijderd een groep als die bestaad
 	 * 
 	 * @param groepnaam van de groep die verwijdert wordt
-	 * @return returnt true als het gelukt is
+	 * @return returnt true als het gelukt is anders false
 	 */
 	public boolean removeGroep(String groepnaam, ICommandSender sender){
 		ICommandSender[] groep = null;
 		groep = groepen.remove(groepnaam);
 		if(groep != null){
+			clanId.remove(groepnaam);
 			String text = color.prefix + color.rood +"Your Group Has Bin Removed By " + color.groen + sender.getCommandSenderName();
 			color.sendPrivateMessageToMultiple(groep, text);
 			return true;
