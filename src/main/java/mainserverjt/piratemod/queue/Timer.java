@@ -1,4 +1,4 @@
-package mainserverjt.piratemod.qui;
+package mainserverjt.piratemod.queue;
 
 import mainserverjt.piratemod.Main;
 import mainserverjt.piratemod.command.ChatColor;
@@ -54,11 +54,11 @@ public class Timer extends Thread implements Runnable {
 				this.sleep(1000);
 				tijd -= 1;
 				if(tijd % 2 == 0){
-					ChatColor.sendBroadcastMessage(ChatColor.prefix + "Qui will close in " + tijd + " sec");
+					ChatColor.sendBroadcastMessage(ChatColor.prefix + "Queue will close in " + tijd + " sec");
 				}
 				if(tijd == 0 || !run){
 					run = false;
-					main.qui.setQuiOpen(false);
+					main.queue.setQueueOpen(false);
 				}
 			}
 		} catch (InterruptedException e) {

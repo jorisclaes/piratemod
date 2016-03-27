@@ -1,4 +1,4 @@
-package mainserverjt.piratemod.qui;
+package mainserverjt.piratemod.queue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import scala.concurrent.Channel.LinkedList;
 
-public class Qui {
+public class queue {
 	
 	public Main main;
 	private HashMap<String, ICommandSender[]> groepen;
@@ -20,7 +20,7 @@ public class Qui {
 	private int timerOpen;
 	private Timer timer;
 	
-	public Qui(Main main){
+	public queue(Main main){
 		this.main = main;
 		groepen = new HashMap<String, ICommandSender[]>();
 		clanId = new HashMap<String, Integer>();
@@ -33,15 +33,15 @@ public class Qui {
 	 * stuurt automatis een message
 	 * @param flag inschrijvingen open zetten?
 	 */
-	public void setQuiOpen(boolean flag){
+	public void setQueueOpen(boolean flag){
 		this.quiInschrijvingenOpen = flag;
-		if(flag){//qui opent
-			color.sendBroadcastMessage(color.prefix + color.lichtPaars + "Qui Now Open");		
+		if(flag){//queue opent
+			color.sendBroadcastMessage(color.prefix + color.lichtPaars + "Queue Is Now Open");		
 			color.sendBroadcastMessage(color.prefix + color.groen + "use /pm register to register");
 			timer.setTimer(this.timerOpen);
 			timer.setRun(true);
-		}else{//qui sluit
-			color.sendBroadcastMessage(color.prefix + color.lichtPaars + "Qui Now Closed");
+		}else{//queue sluit
+			color.sendBroadcastMessage(color.prefix + color.lichtPaars + "Queue Is Now Closed");
 			timer.setRun(false);
 		}
 	}
