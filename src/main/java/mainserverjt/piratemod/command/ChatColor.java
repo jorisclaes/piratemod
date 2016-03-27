@@ -151,7 +151,7 @@ public class ChatColor {
 	}
 	
 	/**
-	 * stuurt een bericht naar één persoon eventueel met cleurtjes
+	 * stuurt een bericht naar 1 persoon eventueel met cleurtjes
 	 * @param p_71515_1_ depersoon naar wie je gaat sturen
 	 * @param message het beticht
 	 */
