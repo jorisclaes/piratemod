@@ -6,13 +6,15 @@ import java.util.List;
 
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import mainserverjt.piratemod.Main;
+import mainserverjt.piratemod.command.commands.HelpCommand;
+import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.IChatComponent;
 
-public class CommandMain implements ICommand {
+public class CommandMain extends CommandBase implements ICommand {
 	public Main main;
 	private List commands;
 
@@ -50,9 +52,13 @@ public class CommandMain implements ICommand {
 
 	@Override
 	public void processCommand(ICommandSender p_71515_1_, String[] p_71515_2_) {
-		// TODO Auto-generated method stub
-		ChatColor.sendPrivateMessage(p_71515_1_, "test");
-		((EntityPlayer)p_71515_1_).getUniqueID();
+		if(p_71515_2_.length > 1){
+			if(p_71515_2_[0].equalsIgnoreCase("help")){
+				HelpCommand.processCommand(p_71515_1_, removeIndexUntil(1, p_71515_2_));
+			}
+		}else{
+			ChatColor.sendPrivateMessage(p_71515_1_, ChatColor.prefix + ChatColor.rood + "Use /pm help");
+		}
 	}
 
 	@Override
@@ -72,5 +78,14 @@ public class CommandMain implements ICommand {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
+	private String[] removeIndexUntil(int index, String[] args){
+		String[] hulp = new String[((args.length - 1) - index)];
+		int j = 0;
+		for(int i = index ; i < args.length; i++){
+			hulp[j] = args[i];
+			j += 1;
+		}
+		return hulp;
+	}
 }

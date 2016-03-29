@@ -8,22 +8,24 @@ public class Pirate{
 	
 	private Main main;
 	private Crew crew;
+	private String naam;
 	private int rank;
 	private final UUID uniekID;
 	private double funding;
 	private String type; //wat die doet
 	//private Gear gear;
-	private int level;
+	private float level;
+	private int permissionLvl;
 	
 	/**
 	 * maakt een nieuwe piraat aan
 	 * @param main main variable
-	 * @param crew is de crew dat die tot behoort
+	 * @param naam de naam van di piraat
 	 * @param unikId is de player zijn unik id
 	 */
-	public Pirate(Main main, Crew crew, UUID unikId){
+	public Pirate(Main main, String naam, UUID unikId){
 		this.main = main;
-		this.crew = crew;
+		this.naam = naam;
 		this.uniekID = unikId;
 	}
 
@@ -79,15 +81,15 @@ public class Pirate{
 	 * returnt de piraat zijn huidig level
 	 * @return als int 
 	 */
-	public int getLevel() {
+	public float getLevel() {
 		return level;
 	}
 
 	/**
 	 * set het momentele level dat deze piraat is
-	 * @param level als int
+	 * @param level als float
 	 */
-	public void setLevel(int level) {
+	public void setLevel(float level) {
 		this.level = level;
 	}
 
@@ -98,7 +100,15 @@ public class Pirate{
 	public final Crew getCrew() {
 		return crew;
 	}
-
+	
+	/**
+	 * set de crew dat de piraat tot behoort
+	 * @param c de toegewezen crew
+	 */
+	public void setCrew(Crew c){
+		this.crew = c;
+	}
+	
 	/**
 	 * returnt wat het uniek id id van deze piraat is
 	 * @return als UUID java.util
@@ -106,6 +116,45 @@ public class Pirate{
 	public final UUID getUniekID() {
 		return uniekID;
 	}
+
+	/**
+	 * returnt de piraat zij permissie lvl
+	 * @return 0 == kan niets
+	 */
+	public int getPermissionLvl() {
+		return permissionLvl;
+	}
+
+	/**
+	 * set de permissie lvls van de piraat
+	 * @param permissionLvl int > 0
+	 */
+	public void setPermissionLvl(int permissionLvl) {
+		this.permissionLvl = permissionLvl;
+	}
 	
+	/**
+	 * verwact een een variable van PermissionsHelper.(opWatJeWiltTesten)
+	 * @param command benodige UseLvl
+	 * @return 
+	 * returnt rtue als de piraat een hoogenoe CommandLvl heeft:
+	 * 		dus hij kan het command gebruiken
+	 * 
+	 * returnd false alhij niet voldoet aan het opgegeven lvl
+	 */
+	public boolean canPirateUseCommand(float command){
+		if(this.permissionLvl < command){
+			return false;
+		}else{
+			return true;
+		}
+	}
 	
+	/**
+	 * returnt de piraat zijn naam
+	 * @return
+	 */
+	private final String getNaam(){
+		return this.naam;
+	}
 }
