@@ -57,5 +57,12 @@ public class Main {
 	public 	ArrayList<Crew> getBestaandeCrews(){
 		return bestaandeCrews;
 	}
+	
+	/**
+	 * gaat de settings file uitlezen
+	 */
+	public void loadSettings(){
+		((SettingsHandler) FileHandler).readFile();
+	}
 		
 }

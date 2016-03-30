@@ -14,18 +14,26 @@ public class FileHandler {
 	
 	private Main main;
 	private boolean gebruiktDB;
-	private static String path;
+	private static String path = "config/PirateMod/";
 	
 	public FileHandler(Main main){
 		this.main = main;
-		path = "config/PirateMod/";
+		createDirr();
 	}
 
+	/**
+	 * set of er een DB wordt gebruikt
+	 * @param flag true is ja
+	 */
+	public void setGebruiktDB(boolean flag){
+		gebruiktDB = flag;
+	}
+	
 	/**
 	 * returnt of er een DB wordt gebruikt
 	 * @return true als er een DB gebuikt wordt
 	 */
-	private boolean isGebruiktDB() {
+	public boolean isGebruiktDB() {
 		return gebruiktDB;
 	}
 
@@ -35,7 +43,7 @@ public class FileHandler {
 	 * @param fileName als String
 	 * @return flag als boolean
 	 */
-	private boolean isFileExisting(String fileName){
+	public boolean isFileExisting(String fileName){
 		File file = new File(fileName + fileName);
 		if(file.exists() && !file.isDirectory()){
 			return true;
@@ -50,7 +58,7 @@ public class FileHandler {
 	 * @return de gesavede file
 	 * 		moest het mislukken dan returnt die null
 	 */
-	private File saveFile(String fileName, String content){
+	public File saveFile(String fileName, String content){
 		try{
 			File f = new File(path + fileName);
 			File dir = new File(path);
@@ -71,9 +79,27 @@ public class FileHandler {
 	 * returnt het pad waar de file moet opgelagen worden
 	 * @return path las String
 	 */
-	private static String getPath() {
+	public static String getPath() {
 		return path;
 	}
 	
+	/**
+	 * gaat kijken of de dirr al bestaat
+	 * zoniet maakt hij die aan
+	 */
+	private void createDirr(){
+		File f = new File(path);
+		if(f.exists()){
+			return;
+		}
+		f.mkdirs();
+	}
 	
+	/**
+	 * returnt de main variable
+	 * @return main als Main
+	 */
+	protected Main getMain(){
+		return main;
+	}
 }
