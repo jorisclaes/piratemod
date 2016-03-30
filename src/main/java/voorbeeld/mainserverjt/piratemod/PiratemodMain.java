@@ -88,6 +88,7 @@ public class PiratemodMain {
 		GameRegistry.addSmelting(coocie, new ItemStack(gesmolte_coocky), 5.0F);
 	}
 
+	
 	//@EventHandler
 	public void serverLoad(FMLServerStartingEvent event) {
 		event.registerServerCommand(new SampleCommand());

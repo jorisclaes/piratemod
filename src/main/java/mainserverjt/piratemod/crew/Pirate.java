@@ -3,6 +3,7 @@ package mainserverjt.piratemod.crew;
 import java.util.UUID;
 
 import mainserverjt.piratemod.Main;
+import net.minecraft.entity.player.EntityPlayer;
 
 public class Pirate{
 	
@@ -16,6 +17,7 @@ public class Pirate{
 	//private Gear gear;
 	private float level;
 	private int permissionLvl;
+	private EntityPlayer player;
 	
 	/**
 	 * maakt een nieuwe piraat aan
@@ -23,10 +25,11 @@ public class Pirate{
 	 * @param naam de naam van di piraat
 	 * @param unikId is de player zijn unik id
 	 */
-	public Pirate(Main main, String naam, UUID unikId){
+	public Pirate(Main main, EntityPlayer player){
 		this.main = main;
-		this.naam = naam;
-		this.uniekID = unikId;
+		this.naam = player.getDisplayName();
+		this.uniekID = player.getUniqueID();
+		this.player = player;
 	}
 
 	/**
@@ -156,5 +159,13 @@ public class Pirate{
 	 */
 	private final String getNaam(){
 		return this.naam;
+	}
+	
+	/**
+	 * returnt de player de bij deze piraat hoort
+	 * @return EntityPlayer
+	 */
+	public EntityPlayer getPlayer(){
+		return player;
 	}
 }

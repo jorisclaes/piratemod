@@ -24,7 +24,7 @@ public class ItemTable extends ItemSpade {
 		this.setUnlocalizedName(this.name).setTextureName(PiratemodMain.modID + ":" + this.name);
 		GameRegistry.registerItem(this, this.name);
 		setCreativeTab(PiratemodMain.tab);
-		setMaxStackSize(64);
+		setMaxStackSize(2000);
 	}
 
 	public void itemRegiserResepe(){
