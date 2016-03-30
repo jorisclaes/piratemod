@@ -37,7 +37,10 @@ public class PlayerEvent {
 		EntityPlayer player = evt.player;
 		for(int i = 0; i < main.getOnlinePirates().size(); i++){
 			if(player.getUniqueID().equals(main.getOnlinePirates().get(i).getUniekID())){
-				main.getOnlinePirates().remove(i);
+				Pirate p = main.getOnlinePirates().get(i);
+				if(p.getFunding() == 0 && p.getCrew() == null && p.getRank() == 0 && p.getType() == null){
+					main.getOnlinePirates().remove(p);
+				}
 			}
 		}
 		System.out.println("lenth: " + main.getOnlinePirates().size());

@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class HelpCommand {
 
-	public static final float UseLrvl = PermissionsHelper.helpCommand;
+	public static final float UseLrvl = PermissionsHelper.f_helpCommand;
 	private static String[] bestaandeCommands = {
 		"/pm register"	
 	};
