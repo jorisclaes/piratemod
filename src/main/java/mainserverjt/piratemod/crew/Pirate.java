@@ -18,6 +18,7 @@ public class Pirate{
 	private String type; //wat die doet
 	//private Gear gear;
 	private float level;
+	private float xpLvl;
 	private int permissionLvl;
 	private EntityPlayer player;
 	
@@ -185,4 +186,22 @@ public class Pirate{
 	public void saveData(){
 		throw new UnsupportedOperationException("save data moet nog geschreven worden");
 	}
+
+	/**
+	 * returnt het huidig xp LVL van de piraat
+	 * @return xpLvl float
+	 */
+	private float getXpLvl() {
+		return xpLvl;
+	}
+
+	/**
+	 * sethet huidig xp LVL van de piraat
+	 * @param xpLvl als foat
+	 */
+	private void setXpLvl(float xpLvl) {
+		this.xpLvl = xpLvl;
+	}
+	
+	
 }
