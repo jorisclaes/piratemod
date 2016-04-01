@@ -19,6 +19,8 @@ public class FileHandler {
 	public FileHandler(Main main){
 		this.main = main;
 		createDirr();
+		((SettingsHandler)this).readFile();
+		((CrewHandler)this).readData();
 	}
 
 	/**

@@ -2,15 +2,20 @@ package mainserverjt.piratemod.db;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.sun.java_cup.internal.runtime.Symbol;
 
 import mainserverjt.piratemod.Main;
+import mainserverjt.piratemod.crew.Crew;
+import mainserverjt.piratemod.db.tabelInit.CrewTabel;
+import mainserverjt.piratemod.db.tabelInit.PirateTable;
 
 public class SettingsHandler extends FileHandler{
 
-	private String fileName = "PirateMod.settings";
+	private static String fileName = "PirateMod.settings";
+	private static boolean dbBestaad = false;
 	
 	public SettingsHandler(Main main) {
 		super(main);
@@ -40,6 +45,14 @@ public class SettingsHandler extends FileHandler{
 				"\tuserName: ''\n"+
 				"\tpass: ''";
 		super.saveFile(fileName, content);
+		super.setGebruiktDB(false);
+		SqlLileJDBC.maakConnectie();
+		SqlLileJDBC.voerUpdateUit(CrewTabel.CREATE_SQL);
+		SqlLileJDBC.voerUpdateUit(PirateTable.CREATE_SQL);
+		SqlLileJDBC.voerUpdateUit(CrewTabel.ALTER_TABLE_SETINGS);
+		SqlLileJDBC.voerUpdateUit(PirateTable.ALTER_TABLE_SETTINGS);
+		SqlLileJDBC.voerUpdateUit(PirateTable.ALTER_TABLE_RESTRICT);
+		SqlLileJDBC.sluitConnectie();
 	}
 	
 	/**
@@ -78,6 +91,26 @@ public class SettingsHandler extends FileHandler{
 				}
 			}
 			scan.close();
+			try{
+				SqlJDBC.maakConnectie();
+				SqlJDBC.voerQryUit("select * from crew;");
+				SqlJDBC.sluitConnectie();
+				dbBestaad = true;
+			}catch(SQLException ex){}
+			
+			if(super.isGebruiktDB() && !dbBestaad){
+				try{
+					SqlJDBC.maakConnectie();
+					SqlJDBC.voerUpdateUit(CrewTabel.CREATE_SQL);
+					SqlJDBC.voerUpdateUit(PirateTable.CREATE_SQL);
+					SqlJDBC.voerUpdateUit(CrewTabel.ALTER_TABLE_SETINGS);
+					SqlJDBC.voerUpdateUit(PirateTable.ALTER_TABLE_SETTINGS);
+					SqlJDBC.voerUpdateUit(PirateTable.ALTER_TABLE_RESTRICT);
+					SqlJDBC.sluitConnectie();
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

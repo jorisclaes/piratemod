@@ -13,7 +13,7 @@ import mainserverjt.piratemod.crew.Pirate;
 import mainserverjt.piratemod.db.FileHandler;
 import mainserverjt.piratemod.db.SettingsHandler;
 import mainserverjt.piratemod.event.PlayerEvent;
-import mainserverjt.piratemod.queue.queue;
+import mainserverjt.piratemod.queue.Queue;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
@@ -23,8 +23,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 public class Main {
 	public static final String modName = "PirateMod";
 	public CommandMain commandMain;
-	public queue queue;
-	private Crew crew;
+	public Queue queue;
 	private ArrayList<Pirate> onlinePirate;
 	private ArrayList<Crew> bestaandeCrews;
 	private FileHandler FileHandler;
@@ -36,6 +35,7 @@ public class Main {
 		onlinePirate = new ArrayList<Pirate>();
 		bestaandeCrews = new ArrayList<Crew>();
 		FileHandler = new FileHandler(this);
+		queue = new Queue(this);
 		FMLCommonHandler.instance().bus().register(new PlayerEvent(this));
 	}
 	

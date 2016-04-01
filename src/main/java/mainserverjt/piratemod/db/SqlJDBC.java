@@ -14,37 +14,25 @@ public class SqlJDBC {
 	/**
 	 * gaat connectie leggen met de sql server
 	 * VERGEET JE CONNECTIE NIET TE SLUITEN
+	 * @throws SQLException 
 	 */
-	public void maakConnectie(){
-		try {
-			Class.forName("com.mysql.jdbc.Drver");
-			c = DriverManager.getConnection("JDBC:mysql:" + url + dbNaam, username, passwoord);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static void maakConnectie() throws SQLException{
+		c = DriverManager.getConnection("JDBC:mysql:" + url + dbNaam, username, passwoord);
 	}
 	
 	/**
 	 * gaat een qry uitvoeren
 	 * @param sql de sql selectie als String
 	 * @return 
-	 * 		als gelukt is returnt die een ResultSet van de data
-	 * 		en anders een null
+	 * 		altijd da uit komst van da sql
+	 * @throws SQLException 
 	 */
-	public ResultSet voerQryUit(String sql){
-		Statement stm;
-		try {
-			stm = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			return stm.executeQuery(sql);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+	public static ResultSet voerQryUit(String sql) throws SQLException{
+		Statement stm = null;
+		stm = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = null;
+		rs = stm.executeQuery(sql);
+		return rs;
 	}
 	
 	/**
@@ -56,28 +44,21 @@ public class SqlJDBC {
 	 * 
 	 * als je 5 rijen aanpast zou die 5 moetten returnen
 	 * zo niet heeft die niet alle rijen gedaan
+	 * @throws SQLException 
 	 */
-	public int update(String sql){
+	public static int voerUpdateUit(String sql) throws SQLException{
 		int cont = -1;
-		try{
-			Statement stm = c.createStatement();
-			cont = stm.executeUpdate(sql);
-			stm.close();
-		}catch(SQLException ex){
-			ex.printStackTrace();
-		}
+		Statement stm = c.createStatement();
+		cont = stm.executeUpdate(sql);
+		stm.close();
 		return cont;
 	}
 	
 	/**
 	 * gaat de connectie sluiten met de sql server
+	 * @throws SQLException 
 	 */
-	public void sluitConnectie(){
-		try {
-			c.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static void sluitConnectie() throws SQLException{
+		c.close();
 	}
 }

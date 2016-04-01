@@ -9,7 +9,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import scala.concurrent.Channel.LinkedList;
 
-public class queue {
+public class Queue {
 	
 	public Main main;
 	private HashMap<String, ICommandSender[]> groepen;
@@ -20,7 +20,7 @@ public class queue {
 	private int timerOpen;
 	private Timer timer;
 	
-	public queue(Main main){
+	public Queue(Main main){
 		this.main = main;
 		groepen = new HashMap<String, ICommandSender[]>();
 		clanId = new HashMap<String, Integer>();

@@ -191,7 +191,7 @@ public class Pirate{
 	 * returnt het huidig xp LVL van de piraat
 	 * @return xpLvl float
 	 */
-	private float getXpLvl() {
+	public float getXpLvl() {
 		return xpLvl;
 	}
 
@@ -199,7 +199,7 @@ public class Pirate{
 	 * sethet huidig xp LVL van de piraat
 	 * @param xpLvl als foat
 	 */
-	private void setXpLvl(float xpLvl) {
+	public void setXpLvl(float xpLvl) {
 		this.xpLvl = xpLvl;
 	}
 	

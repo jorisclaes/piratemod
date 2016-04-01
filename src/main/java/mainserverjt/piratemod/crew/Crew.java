@@ -2,6 +2,7 @@ package mainserverjt.piratemod.crew;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 import mainserverjt.piratemod.Main;
 import net.minecraft.command.ICommandSender;
@@ -10,7 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 public class Crew {
 
 	private ArrayList<Pirate> leden;
-	private Pirate stichter;
+	private String stichterUUID;
 	private final int id;
 	private Main main;
 	private int rank;
@@ -81,10 +82,10 @@ public class Crew {
 
 	/**
 	 * set de funding
-	 * @param funding int
+	 * @param d int
 	 */
-	public void setFunding(int funding) {
-		this.funding = funding;
+	public void setFunding(double d) {
+		this.funding = d;
 	}
 
 	/**
@@ -108,16 +109,16 @@ public class Crew {
 	 * 'De capitein'
 	 * @return Piraat
 	 */
-	public Pirate getStichter() {
-		return stichter;
+	public String getStichterUUID() {
+		return stichterUUID;
 	}
 
 	/**
 	 * set de stichter van de crew
-	 * @param stichter al Piraat
+	 * @param UUID al Piraat
 	 */
-	public void setStichter(Pirate stichter) {
-		this.stichter = stichter;
+	public void setStichterUUID(String UUID) {
+		this.stichterUUID = UUID;
 	}
 	
 	/**

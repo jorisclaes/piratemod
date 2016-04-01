@@ -10,7 +10,7 @@ public class SqlLileJDBC {
 	 * gaat connectie leggen met de sql file
 	 * VERGEET JE CONNECTIE NIET TE SLUITEN
 	 */
-	public void maakConnectie(){
+	public static void maakConnectie(){
 		try {
 			Class.forName("org.sqlite.JDBC");
 		    c = DriverManager.getConnection("jdbc:sqlite:" + FileHandler.getPath() + "PirateMod.db");
@@ -29,7 +29,7 @@ public class SqlLileJDBC {
 	 * 		als gelukt is returnt die een ResultSet van de data
 	 * 		en anders een null
 	 */
-	public ResultSet voerQryUit(String SQL){
+	public static ResultSet voerQryUit(String SQL){
 		Statement stm;
 		try {
 			stm = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -51,7 +51,7 @@ public class SqlLileJDBC {
 	 * als je 5 rijen aanpast zou die 5 moetten returnen
 	 * zo niet heeft die niet alle rijen gedaan
 	 */
-	public int update(String sql){
+	public static int voerUpdateUit(String sql){
 		int cont = 0;
 		try{
 			Statement stm = c.createStatement();
@@ -66,7 +66,7 @@ public class SqlLileJDBC {
 	/**
 	 * gaat de connectie sluiten met de sql file
 	 */
-	public void sluitConnectie(){
+	public static void sluitConnectie(){
 		try {
 			c.close();
 		} catch (SQLException e) {
