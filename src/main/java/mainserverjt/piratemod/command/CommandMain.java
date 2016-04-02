@@ -52,7 +52,7 @@ public class CommandMain extends CommandBase implements ICommand {
 
 	@Override
 	public void processCommand(ICommandSender p_71515_1_, String[] p_71515_2_) {
-		if(p_71515_2_.length > 1){
+		if(p_71515_2_.length >= 1){
 			if(p_71515_2_[0].equalsIgnoreCase("help")){
 				HelpCommand.processCommand(p_71515_1_, removeIndexUntil(1, p_71515_2_));
 			}
@@ -80,6 +80,7 @@ public class CommandMain extends CommandBase implements ICommand {
 	}
 	
 	private String[] removeIndexUntil(int index, String[] args){
+		if(args.length == index)return null;
 		String[] hulp = new String[((args.length - 1) - index)];
 		int j = 0;
 		for(int i = index ; i < args.length; i++){
