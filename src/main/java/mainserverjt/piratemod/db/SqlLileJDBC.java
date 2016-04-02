@@ -36,9 +36,8 @@ public class SqlLileJDBC {
 			return stm.executeQuery(SQL);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 	
 	/**

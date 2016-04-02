@@ -7,6 +7,8 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import mainserverjt.piratemod.Main;
 import mainserverjt.piratemod.command.ChatColor;
 import mainserverjt.piratemod.crew.Pirate;
+import mainserverjt.piratemod.db.CrewHandler;
+import mainserverjt.piratemod.db.PirateHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -27,8 +29,7 @@ public class PlayerEvent {
 			}
 		}
 		ChatColor.sendBroadcastMessage(ChatColor.prefix + "player toegevoegd");
-		Pirate pi = new Pirate(main, pl);
-		main.getOnlinePirates().add(pi);
+		main.pirateHandler.loadData(pl);
 		System.out.println("lenth: " + main.getOnlinePirates().size());
 	}
 	
@@ -38,8 +39,9 @@ public class PlayerEvent {
 		for(int i = 0; i < main.getOnlinePirates().size(); i++){
 			if(player.getUniqueID().equals(main.getOnlinePirates().get(i).getUniekID())){
 				Pirate p = main.getOnlinePirates().get(i);
+				main.getOnlinePirates().remove(p);
 				if(p.getFunding() == 0 && p.getCrew() == null && p.getRank() == 0 && p.getType() == null){
-					main.getOnlinePirates().remove(p);
+					main.pirateHandler.saveData(p);
 				}
 			}
 		}

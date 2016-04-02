@@ -13,14 +13,12 @@ import mainserverjt.piratemod.Main;
 public class FileHandler {
 	
 	private Main main;
-	private boolean gebruiktDB;
+	private static boolean gebruiktDB;
 	private static String path = "config/PirateMod/";
 	
 	public FileHandler(Main main){
 		this.main = main;
 		createDirr();
-		((SettingsHandler)this).readFile();
-		((CrewHandler)this).readData();
 	}
 
 	/**
@@ -46,7 +44,7 @@ public class FileHandler {
 	 * @return flag als boolean
 	 */
 	public boolean isFileExisting(String fileName){
-		File file = new File(fileName + fileName);
+		File file = new File(path + fileName);
 		if(file.exists() && !file.isDirectory()){
 			return true;
 		}

@@ -9,36 +9,37 @@ import mainserverjt.piratemod.crew.Crew;
 import mainserverjt.piratemod.crew.Pirate;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class PirateHandler extends FileHandler{
+public class PirateHandler extends FileHandler {
 
 	private String fileName;
-	
-	public PirateHandler(Main main){
+
+	public PirateHandler(Main main) {
 		super(main);
 	}
-	
+
 	/**
-	 * gaat alle data laden die er is van deze player
-	 * en voegd de player toe aan de online players
-	 * en zorcht er voor dat de crew word gelinkt
-	 * @param player die ingelogd is via evnt
+	 * gaat alle data laden die er is van deze player en voegd de player toe aan
+	 * de online players en zorcht er voor dat de crew word gelinkt
+	 * 
+	 * @param player
+	 *            die ingelogd is via evnt
 	 */
-	public void  loadData(EntityPlayer player){
+	public void loadData(EntityPlayer player) {
 		ResultSet rs = null;
-		try{
-			if(super.isGebruiktDB()){
-				//server
+		try {
+			if (super.isGebruiktDB()) {
+				// server
 				SqlJDBC.maakConnectie();
 				rs = SqlJDBC.voerQryUit("select * from pirate where uuid = " + player.getUniqueID().toString());
 				SqlJDBC.sluitConnectie();
-			}else{
-				//file
+			} else {
+				// file
 				SqlLileJDBC.maakConnectie();
 				rs = SqlLileJDBC.voerQryUit("select * from pirate where uuid = " + player.getUniqueID().toString());
 				SqlLileJDBC.sluitConnectie();
 			}
-			if(rs.last()){
-				//bestaad
+			if (rs != null && rs.last()) {
+				// bestaad
 				rs.beforeFirst();
 				rs.next();
 				Pirate piraat = new Pirate(getMain(), player);
@@ -48,43 +49,44 @@ public class PirateHandler extends FileHandler{
 				piraat.setType(rs.getString("type"));
 				piraat.setXpLvl(rs.getFloat("xp"));
 				getMain().getOnlinePirates().add(piraat);
-				for(Crew crew : getMain().getBestaandeCrews()){
-					if(crew.getId() == rs.getInt("crew_id")){
+				for (Crew crew : getMain().getBestaandeCrews()) {
+					if (crew.getId() == rs.getInt("crew_id")) {
 						piraat.setCrew(crew);
 					}
 				}
-			}else{
-				//bestaad niet
+			} else {
+				// bestaad niet
 				Pirate piraat = new Pirate(getMain(), player);
 				getMain().getOnlinePirates().add(piraat);
 			}
-			rs.close();
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * gaat de speler gegevens opslaan
-	 * de funktie verwacht de Pirate die ne t uit gelogd is
-	 * @param p al Piraat
+	 * gaat de speler gegevens opslaan de funktie verwacht de Pirate die net uit
+	 * gelogd is
+	 * 
+	 * @param p
+	 *            al Piraat
 	 */
-	public void saveData(Pirate p){
-		try{
-			boolean gevonden = false;
+	public void saveData(Pirate p) {
+		try {
 			ResultSet rs = null;
-			if(isGebruiktDB()){
-				//server
+			if (isGebruiktDB()) {
+				// server
 				SqlJDBC.maakConnectie();
 				rs = SqlJDBC.voerQryUit("select * from pirate where uuid = " + p.getUniekID().toString());
-			}else{
-				//file
+			} else {
+				// file
 				SqlLileJDBC.maakConnectie();
 				rs = SqlLileJDBC.voerQryUit("select * from pirate where uuid = " + p.getUniekID().toString());
 			}
-			if(rs.last()){
-				//bestaat
-				rs.moveToInsertRow();
+			if (rs != null && rs.last()) {
+				// bestaat
+				rs.beforeFirst();
+				rs.next();
 				rs.updateInt("crew_id", p.getCrew().getId());
 				rs.updateString("naam", p.getPlayer().getDisplayName());
 				rs.updateInt("rank", p.getRank());
@@ -92,10 +94,36 @@ public class PirateHandler extends FileHandler{
 				rs.updateString("type", p.getType());
 				rs.updateFloat("lvl", p.getLevel());
 				rs.updateFloat("xp", p.getXpLvl());
-			}else{
-				//bestaad niet
+				rs.updateRow();
+			} else {
+				// bestaad niet
+				System.out.println("de piraat bestaat niet");
+				String sql = "insert into pirate (uuid, crew_id, naam, rank, funding, type, lvl, xp) values ('"
+						+ p.getUniekID().toString() + "','"
+						+ p.getCrew().getId() + "','" 
+						+ p.getPlayer().getDisplayName() + "','"
+						+ p.getRank() + "','" 
+						+ p.getFunding() + "','" 
+						+ p.getType() + "','" 
+						+ p.getLevel() + "','"
+						+ p.getXpLvl() + "');";
+				System.out.println("gebruikt db= " + isGebruiktDB());
+				if (isGebruiktDB()) {
+					SqlJDBC.sluitConnectie();
+					// server
+					SqlJDBC.maakConnectie();
+					int i = SqlJDBC.voerUpdateUit(sql);
+					System.out.println("geupdate index= " + i);
+					SqlJDBC.sluitConnectie();
+				} else {
+					SqlLileJDBC.sluitConnectie();
+					// file
+					SqlLileJDBC.maakConnectie();
+					SqlLileJDBC.voerQryUit(sql);
+					SqlLileJDBC.sluitConnectie();
+				}
 			}
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

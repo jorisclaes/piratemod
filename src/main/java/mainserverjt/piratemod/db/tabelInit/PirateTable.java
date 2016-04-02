@@ -3,7 +3,7 @@ package mainserverjt.piratemod.db.tabelInit;
 public class PirateTable {
 
 	public static final String CREATE_SQL =
-			"IF NOT EXISTS CREATE TABLE `pirate` (" +
+			"CREATE TABLE `pirate` (" +
 					  "`uuid` varchar(40) NOT NULL,"+
 					  "`crew_id` int(11) NOT NULL,"+
 					  "`naam` varchar(255) NOT NULL,"+
@@ -14,12 +14,12 @@ public class PirateTable {
 					  "`xp` float NOT NULL"+
 					") ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 	
-	public static final String ALTER_TABLE_SETTINGS=
+	public static final String ALTER_TABLE_SETTINGS =
 			"ALTER TABLE `pirate`"+
-					  "ADD PRIMARY KEY (`uuid`,`crew_id`),"+
-					  "ADD KEY `crew_id` (`crew_id`);";
+			 "ADD PRIMARY KEY (`uuid`),"+
+			  "ADD KEY `crew_id` (`crew_id`);";
 	
-	public static final String ALTER_TABLE_RESTRICT=
+	public static final String ALTER_ADD_PIAMRY_KEY=
 			"ALTER TABLE `pirate`"+
-					  "ADD CONSTRAINT `pirate_ibfk_1` FOREIGN KEY (`crew_id`) REFERENCES `crew` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;";
+			  "ADD CONSTRAINT `pirate_ibfk_1` FOREIGN KEY (`crew_id`) REFERENCES `crew` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;";
 }

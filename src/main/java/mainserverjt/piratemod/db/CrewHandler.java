@@ -14,6 +14,7 @@ public class CrewHandler extends FileHandler {
 
 	public CrewHandler(Main main) {
 		super(main);
+		readData();
 	}
 
 	/**
@@ -72,8 +73,9 @@ public class CrewHandler extends FileHandler {
 					SqlLileJDBC.maakConnectie();
 					rs = SqlLileJDBC.voerQryUit("select * from crew where id = " + crew.getId());
 				}
-				if(rs.last()){
+				if(rs != null && rs.last()){
 					//bestaad
+					rs.updateString("naam", crew.getNaamCrew());
 					rs.updateInt("rank", crew.getRank());
 					rs.updateDouble("gem_xp_lvl", crew.getGemiddeldeXpLvl());
 					rs.updateDouble("funding", crew.getFunding());
@@ -81,15 +83,19 @@ public class CrewHandler extends FileHandler {
 					rs.updateRow();
 				}else{
 					//bestaad niet
-					rs.moveToInsertRow();
-					rs.updateInt("id", crew.getId());
-					rs.updateInt("rank", crew.getRank());
-					rs.updateDouble("gem_xp_lvl", crew.getGemiddeldeXpLvl());
-					rs.updateDouble("funding", crew.getFunding());
-					rs.updateString("stichter_uuid", crew.getStichterUUID());
-					rs.updateRow();
+					String sql = "insert into crew (id, naam, rank, gem_xp_lvl, funding, stichter_uuid) values ('"+
+							crew.getId()+"','"+
+							crew.getNaamCrew()+"','"+
+							crew.getRank()+"','"+
+							crew.getGemiddeldeXpLvl()+"','"+
+							crew.getFunding()+"','"+
+							crew.getStichterUUID().toString()+"');";
+					if(string.equals("server")){
+						SqlJDBC.voerUpdateUit(sql);
+					}else{
+						SqlLileJDBC.voerUpdateUit(sql);
+					}
 				}
-				rs.close();
 				if(string.equals("server")){
 					SqlJDBC.sluitConnectie();
 				}else{
@@ -112,23 +118,25 @@ public class CrewHandler extends FileHandler {
 					crew.setRank(rs.getInt("rank"));
 					crew.setGemiddeldeXpLvl(rs.getDouble("gem_xp_lvl"));
 					crew.setFunding(rs.getDouble("funding"));
-					crew.setStichterUUID(rs.getString("stchter_uuid"));
+					crew.setStichterUUID(rs.getString("stichter_uuid"));
 					super.getMain().getBestaandeCrews().add(crew);
 				}
 				rs.close();
 			}else{
-
 				ResultSet rs = SqlLileJDBC.voerQryUit("select * from crew;");
-				rs.beforeFirst();
-				while(rs.next()){
-					int crewID = rs.getInt("id");
-					Crew crew = new Crew(super.getMain(), crewID);
-					crew.setRank(rs.getInt("rank"));
-					crew.setGemiddeldeXpLvl(rs.getDouble("gem_xp_lvl"));
-					crew.setFunding(rs.getDouble("funding"));
-					crew.setStichterUUID(rs.getString("stchter_uuid"));
+				if(rs != null){
+					rs.beforeFirst();
+					while(rs.next()){
+						int crewID = rs.getInt("id");
+						Crew crew = new Crew(super.getMain(), crewID);
+						crew.setNaamCrew(rs.getString("naam"));
+						crew.setRank(rs.getInt("rank"));
+						crew.setGemiddeldeXpLvl(rs.getDouble("gem_xp_lvl"));
+						crew.setFunding(rs.getDouble("funding"));
+						crew.setStichterUUID(rs.getString("stchter_uuid"));
+					}
+					rs.close();
 				}
-				rs.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

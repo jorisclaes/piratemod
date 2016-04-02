@@ -104,6 +104,9 @@ public class Pirate{
 	 * @return als Crew
 	 */
 	public final Crew getCrew() {
+		if(crew == null){
+			crew = new Crew(main, -1);
+		}
 		return crew;
 	}
 	

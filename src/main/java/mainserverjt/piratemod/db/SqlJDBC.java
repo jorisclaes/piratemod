@@ -17,7 +17,19 @@ public class SqlJDBC {
 	 * @throws SQLException 
 	 */
 	public static void maakConnectie() throws SQLException{
-		c = DriverManager.getConnection("JDBC:mysql:" + url + dbNaam, username, passwoord);
+		try {
+            //MySql db
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            c = DriverManager.getConnection("jdbc:mysql://" + url, username, passwoord);
+        } catch (ClassNotFoundException e) {
+        	e.printStackTrace();
+        }catch(InstantiationException e){
+        	e.printStackTrace();
+        }catch(IllegalAccessException e){
+        	e.printStackTrace();
+        }catch(SQLException e){
+        	e.printStackTrace();
+        }
 	}
 	
 	/**
@@ -27,11 +39,16 @@ public class SqlJDBC {
 	 * 		altijd da uit komst van da sql
 	 * @throws SQLException 
 	 */
-	public static ResultSet voerQryUit(String sql) throws SQLException{
+	public static ResultSet voerQryUit(String sql){
 		Statement stm = null;
-		stm = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = null;
-		rs = stm.executeQuery(sql);
+		try {
+			stm = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			rs = stm.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
 		return rs;
 	}
 	
@@ -46,11 +63,18 @@ public class SqlJDBC {
 	 * zo niet heeft die niet alle rijen gedaan
 	 * @throws SQLException 
 	 */
-	public static int voerUpdateUit(String sql) throws SQLException{
+	public static int voerUpdateUit(String sql){
 		int cont = -1;
-		Statement stm = c.createStatement();
-		cont = stm.executeUpdate(sql);
-		stm.close();
+		Statement stm;
+		try {
+			stm = c.createStatement();
+			cont = stm.executeUpdate(sql);
+			stm.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
 		return cont;
 	}
 	

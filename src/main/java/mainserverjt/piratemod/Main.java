@@ -6,11 +6,14 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import mainserverjt.piratemod.command.CommandMain;
 import mainserverjt.piratemod.crew.Crew;
 import mainserverjt.piratemod.crew.Pirate;
+import mainserverjt.piratemod.db.CrewHandler;
 import mainserverjt.piratemod.db.FileHandler;
+import mainserverjt.piratemod.db.PirateHandler;
 import mainserverjt.piratemod.db.SettingsHandler;
 import mainserverjt.piratemod.event.PlayerEvent;
 import mainserverjt.piratemod.queue.Queue;
@@ -26,7 +29,9 @@ public class Main {
 	public Queue queue;
 	private ArrayList<Pirate> onlinePirate;
 	private ArrayList<Crew> bestaandeCrews;
-	private FileHandler FileHandler;
+	public SettingsHandler settingsHandler;
+	public CrewHandler crewHandler;
+	public PirateHandler pirateHandler;
 	
 	
 	@EventHandler
@@ -34,12 +39,18 @@ public class Main {
 		commandMain = new CommandMain(this, event);
 		onlinePirate = new ArrayList<Pirate>();
 		bestaandeCrews = new ArrayList<Crew>();
-		FileHandler = new FileHandler(this);
 		queue = new Queue(this);
+		settingsHandler = new SettingsHandler(this);
+		crewHandler = new CrewHandler(this);
+		pirateHandler = new PirateHandler(this);
 		FMLCommonHandler.instance().bus().register(new PlayerEvent(this));
+		System.out.println("Loading dataus DONE");
 	}
 	
-	
+	@EventHandler
+	public void serverClose(FMLServerStoppingEvent event){
+		crewHandler.saveData();
+	}
 	
 	/**
 	 * returnt de lijst met online piraaten
@@ -62,7 +73,7 @@ public class Main {
 	 * gaat de settings file uitlezen
 	 */
 	public void loadSettings(){
-		((SettingsHandler) FileHandler).readFile();
+		settingsHandler.readFile();
 	}
 		
 }

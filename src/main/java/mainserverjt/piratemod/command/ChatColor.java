@@ -1,7 +1,5 @@
 package mainserverjt.piratemod.command;
 
-import com.sun.security.auth.callback.TextCallbackHandler;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import mainserverjt.piratemod.Main;
 import net.minecraft.command.ICommandSender;

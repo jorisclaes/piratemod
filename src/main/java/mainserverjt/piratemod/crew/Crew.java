@@ -12,6 +12,7 @@ public class Crew {
 
 	private ArrayList<Pirate> leden;
 	private String stichterUUID;
+	private String naamCrew;
 	private final int id;
 	private Main main;
 	private int rank;
@@ -127,4 +128,22 @@ public class Crew {
 	public void saveData(){
 		throw new UnsupportedOperationException("crew save moet nog geschreven worden");
 	}
+
+	/**
+	 * returnt de naam van de crew
+	 * @return zls String
+	 */
+	public String getNaamCrew() {
+		return naamCrew;
+	}
+
+	/**
+	 * set de naam van de crew
+	 * @param naamCrew als String
+	 */
+	public void setNaamCrew(String naamCrew) {
+		this.naamCrew = naamCrew;
+	}
+	
+	
 }
