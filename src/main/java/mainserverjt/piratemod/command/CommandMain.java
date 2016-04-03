@@ -24,6 +24,7 @@ public class CommandMain extends CommandBase implements ICommand {
 		this.commands = new ArrayList();
 		this.commands.add("pirateMod");
 		this.commands.add("pm");
+		HelpCommand.setMain(main);
 	}
 
 	@Override

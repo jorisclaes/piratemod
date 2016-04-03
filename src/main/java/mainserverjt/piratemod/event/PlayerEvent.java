@@ -1,5 +1,6 @@
 package mainserverjt.piratemod.event;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -31,17 +32,25 @@ public class PlayerEvent {
 		}
 		ChatColor.sendBroadcastMessage(ChatColor.prefix + "player toegevoegd");
 		Pirate p = main.pirateHandler.loadData(pl);
-		String[] permisions = main.permissionHandler.getPermissions(pl.getDisplayName());
-		if(permisions != null){
-			for(String s : permisions){
-				if(p != null){
-					float f = PermissionsHelper.permissions.get(s);
-					if(p.getPermissionLvl() < f){
-						p.setPermissionLvl(f);
+		ArrayList<String> groeppen = main.permissionHandler.getGroeppen();
+		for(String groepNaam : groeppen){
+			String[] groepUser = main.permissionHandler.getUsersInGroup(groepNaam);
+			String[] rechten = main.permissionHandler.getPermissions(groepNaam);
+			if(groepUser == null || rechten == null) break;
+			for(String user: groepUser){
+				if(user.equals(p.getPlayer().getDisplayName())){
+					for(String per : rechten){
+						if(p.getPermissionLvl() < PermissionsHelper.permissions.get(per));
+						p.setPermissionLvl(PermissionsHelper.permissions.get(per));
 					}
-				}else{
-					System.out.println("player read fout: Permission set FALED");
-					break;
+				}
+			}
+		}
+		String[] userPer = main.permissionHandler.getPermissions(p.getPlayer().getDisplayName());
+		if(userPer != null){
+			for(String per : userPer){
+				if(p.getPermissionLvl() < PermissionsHelper.permissions.get(per)){
+					p.setPermissionLvl(PermissionsHelper.permissions.get(per));
 				}
 			}
 		}
@@ -55,7 +64,7 @@ public class PlayerEvent {
 			if(player.getUniqueID().equals(main.getOnlinePirates().get(i).getUniekID())){
 				Pirate p = main.getOnlinePirates().get(i);
 				main.getOnlinePirates().remove(p);
-				if(p.getFunding() == 0 && p.getCrew() == null && p.getRank() == 0 && p.getType() == null){
+				if(p.getFunding() != 0 && p.getCrew() != null && p.getRank() != 0 && p.getType() != null){
 					main.pirateHandler.saveData(p);
 				}
 			}

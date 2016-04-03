@@ -1,12 +1,15 @@
 package mainserverjt.piratemod.db;
 
+import java.awt.FontFormatException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import mainserverjt.piratemod.Main;
+import mainserverjt.piratemod.exeptions.FileFormatExeption;
 
 public class PermmisionHandler extends FileHandler{
 
@@ -14,6 +17,7 @@ public class PermmisionHandler extends FileHandler{
 	private HashMap<String, String[]>groepen;
 	private HashMap<String, String[]>permissions;
 	private ArrayList<String> groepNamen;
+	private boolean permissionsIqnore;
 	
 	public PermmisionHandler(Main main){
 		super(main);
@@ -29,7 +33,12 @@ public class PermmisionHandler extends FileHandler{
 	public void readFile() {
 		if(super.isFileExisting(fileName)){
 			//file bestaat
-			read();
+			try {
+				read();
+			} catch (FileFormatExeption e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else{
 			//file bestaat niet
 			createFile();
@@ -46,7 +55,7 @@ public class PermmisionHandler extends FileHandler{
 							"\t\t- permission1\n"+
 							"\t\t- permission2\n"+
 				"Group:\n"+
-						"\tName: 'Name'\n"+
+						"\tName: Name\n"+
 						"\tUsers:\n"+
 							"\t\t- user1\n"+
 							"\t\t- user2\n"+
@@ -58,96 +67,34 @@ public class PermmisionHandler extends FileHandler{
 	
 	/**
 	 * gaat de file uitlezen
+	 * @throws FileFormatExeption 
 	 */
-	private void read(){
+	private void read() throws FileFormatExeption{
 		File file = new File(getPath()+fileName);
 		try {
 			Scanner scan = new Scanner(file);
-			while(scan.hasNext()){
-				String hulp = scan.nextLine();
-				String userName = hulp;
-				String args[] = {};
-				String argsH[];
-				String groepName = "";
-				String[] groepUsers = {};
-				String[] permissionGroep = {};
-				if(scan.hasNext()){
-					hulp = scan.nextLine();
-					if(hulp.contains("Permissions:")){
-						while(true){
-							hulp = scan.nextLine();
-							if(hulp.contains("- ")){
-								argsH = new String[args.length+1];
-								for(int i = 0; i < args.length; i++){
-									argsH[i] = args[i];
-								}
-								argsH[argsH.length-1] = hulp.substring(hulp.indexOf(" ")+1);
-								args = argsH;
-							}else{
-								break;
-							}
-						}
-					}					
-				}
-				if(args.length > 0){
-					permissions.put(userName, args);
-				}
-				if(scan.hasNext()){
-					hulp = scan.nextLine();
-					if(hulp.contains("Group")){
-						hulp = scan.nextLine();
-						if(hulp.contains("Name")){
-							args = hulp.split(":");
-							args[1] = args[1].substring(args[1].indexOf("'")+1);
-							args[1] = args[1].substring(0, args[1].indexOf("'"));
-							groepName = args[1];
-							groepNamen.add(groepName);
-						}
-						if(hulp.contains("Users")){
-							if(scan.hasNext()){
-								String[] userH;
-								while(true){
-									userH = new String[groepUsers.length+1];
-									hulp = scan.nextLine();
-									if(hulp.contains("-")){
-										for(int i = 0; i < groepUsers.length; i++){
-											userH[i] = groepUsers[i];
-										}
-										userH[userH.length-1] = hulp.substring(hulp.indexOf(" ")+1);
-										groepUsers = userH;
-									}else{
-										break;
-									}
-								}
-							}
-						}
-						if(hulp.contains("Permissions")){
-							if(scan.hasNext()){
-								String[] perH;
-								while(true){
-									perH = new String[permissionGroep.length+1];
-									hulp = scan.nextLine();
-									if(hulp.contains("-")){
-										for(int i = 0; i < permissionGroep.length; i++){
-											perH[i] = permissionGroep[i];
-										}
-										perH[perH.length-1] = hulp.substring(hulp.indexOf(" ")+1);
-										permissionGroep = perH;
-									}else{
-										break;
-									}
-								}
-							}
-						}
-						if(groepUsers.length > 0){
-							groepen.put(groepName, groepUsers);
-						}
-						if(permissionGroep.length > 0){
-							permissions.put(groepName, permissionGroep);
-						}
-					}
-				}
+			String hulp = "";
+			if(!scan.hasNext()){
+				System.out.println("File EMPTY permissions ignored");
+				permissionsIqnore = true;
+				scan.close();
+				return;
+			}else{
+				permissionsIqnore = false;
 			}
+			hulp = scan.nextLine();
+			if(hulp.contains("Group")){
+				//permission file begint met de groeppen eerst
+				hulp = leesGroeppen(scan, hulp);
+				if(hulp == null) throwFileError(scan, "Goups Format Exeption");
+				hulp = leesUsers(scan, hulp);
+			}else{
+				//permission file begint met de users eerst
+				hulp = leesUsers(scan, hulp);
+				if(hulp == null) throwFileError(scan, "Userest Format Exeption");
+				leesGroeppen(scan, hulp);
+			}
+			scan.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -165,8 +112,8 @@ public class PermmisionHandler extends FileHandler{
 	}
 	
 	/**
-	 * returnt de permissions per Persoon
-	 * als de groep naam is megegeven da returnt die de permiisons per groep naam
+	 * returnt de permissions per Persoon,
+	 * als de groep naam is megegeven dan returnt die de permissons van de groep
 	 * @param Persoon
 	 * @return String[]
 	 */
@@ -181,5 +128,157 @@ public class PermmisionHandler extends FileHandler{
 	 */
 	public ArrayList<String> getGroeppen(){
 		return groepNamen;
+	}
+	
+	/**
+	 * returnt of de permissions ge negert worden :)	
+	 * @return true = genegeert
+	 */
+	public boolean isPermissionsIqnore() {
+		return permissionsIqnore;
+	}
+
+	/**
+	 * trowt een error ivbm de permission file
+	 * @param scan
+	 * @param message
+	 * @throws FileFormatExeption
+	 */
+	private void throwFileError(Scanner scan, String message) throws FileFormatExeption{
+		scan.close();
+		throw new FileFormatExeption("Permission File Format Error: " + message + "\n");
+	}
+	
+	/**
+	 * gaat de groeppen uit lezen van de file
+	 * @param Scanner
+	 * @throws FileFormatExeption 
+	 */
+	private String leesGroeppen(Scanner scan, String hulp) throws FileFormatExeption{
+		String naam = "";
+		String[] per = {};
+		String[] user = {};
+		int aant = 0;
+		if(!scan.hasNext()) throwFileError(scan, "Group Incompete");
+		hulp = scan.nextLine();
+		while(aant != 3){
+			if(hulp.contains("Name")){
+				aant += 1;
+				naam = hulp.substring(hulp.indexOf(" ")+1);
+				if(naam.isEmpty())throwFileError(scan, "Goup > Name: Elegal Argument");
+				hulp = scan.nextLine();
+			}else if (hulp.contains("Users")){
+				aant += 1;
+				if(!scan.hasNext()) throwFileError(scan, "Group > Users: Incomplete");
+				String[] usrH = {};
+				while(true){
+					if(scan.hasNext()){
+						hulp = scan.nextLine();
+					}else{
+						break;
+					}
+					if(hulp.contains("-")){
+						usrH = new String[user.length+1];
+						for(int i = 0; i < user.length; i++){
+							usrH[i] = user[i];
+						}
+						usrH[usrH.length-1] = hulp.substring(hulp.indexOf(" ")+1);
+						if(usrH[usrH.length-1].isEmpty()) throwFileError(scan, "Group > Permissions: Empty Permission After " + usrH[usrH.length-2]);
+						user = usrH;
+					}else{
+						break;
+					}
+				}
+			}else if (hulp.contains("Permissions")){
+				aant += 1;
+				if(!scan.hasNext()) throwFileError(scan, "Group > Permissions: Incompete");
+				String[] perH = {};
+				while(true){
+					if(scan.hasNext()){
+						hulp = scan.nextLine();
+					}else{
+						break;
+					}
+					perH = new String[per.length+1];
+					if(hulp.contains("-")){
+						for(int i = 0; i < per.length; i++){
+							perH[i] = per[i];
+						}
+						perH[perH.length-1] = hulp.substring(hulp.indexOf(" ")+1);
+						if(perH.length > 1){
+							if(perH[perH.length-1].isEmpty()) throwFileError(scan, "Group > Permissions: Empty Permission After " + perH[perH.length-2]);
+						}else{
+							if(perH[perH.length-1].isEmpty()) throwFileError(scan, "Group > Permissions: Empty Permission After " + perH[perH.length-1]);
+						}
+						per = perH;
+					}else{
+						break;
+					}
+				}
+			}else{
+				throwFileError(scan, "Unknown Field: " + hulp);
+			}
+		}
+		this.groepen.put(naam, user);
+		this.permissions.put(naam, per);
+		this.groepNamen.add(naam);
+		if (scan.hasNext() && hulp.contains("Group")){
+			leesGroeppen(scan, hulp);
+		}
+		return hulp;
+	}
+	
+	/**
+	 * gaat de gebruirs uit lezen van de file
+	 * @param Scanner
+	 * @throws FileFormatExeption 
+	 */
+	private String leesUsers(Scanner scan, String hulp) throws FileFormatExeption{
+		if(!scan.hasNext()) return null;
+		String naam = "";
+		String[] per = {};
+		if(hulp.contains(":")){
+			naam = hulp.substring(0, hulp.indexOf(":"));
+		}else{
+			naam = hulp;
+		}
+		System.out.println("USERNAME= " + naam);
+		if(!scan.hasNext()) throwFileError(scan, naam + ": Missing Permissions");
+		hulp = scan.nextLine();
+		if(hulp.contains("Permissions")){
+			if(!scan.hasNext()) throwFileError(scan, naam + " > Permissions: Incomplete");
+			String perH[] = {};
+			while(true){
+				if(scan.hasNext()){
+					hulp = scan.nextLine();
+					perH = new String[per.length+1];
+					if(hulp.contains("-")){
+						for(int i = 0; i < per.length; i++){
+							perH[i] = per[i];
+						}
+						perH[perH.length-1] = hulp.substring(hulp.lastIndexOf(" ")+1);
+						if(perH.length > 1){
+							if(perH[perH.length-1].isEmpty()) throwFileError(scan, "Group > Permissions: Empty Permission After " + perH[perH.length-2]);
+						}else{
+							if(perH[perH.length-1].isEmpty()) throwFileError(scan, "Group > Permissions: Empty Permission After " + perH[perH.length-1]);
+						}
+						per = perH;
+					}else{
+						break;
+					}
+				}else{
+					break;
+				}
+			}
+			this.permissions.put(naam, per);
+			if(scan.hasNext() && !hulp.contains("Group")){
+				leesUsers(scan, hulp);
+			}else{
+				return hulp;
+			}
+		}else{
+			throwFileError(scan, naam + ": Unknown Field: " + hulp);
+		}
+		return null;
 	}
 }
