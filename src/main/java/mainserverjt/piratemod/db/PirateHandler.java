@@ -23,8 +23,9 @@ public class PirateHandler extends FileHandler {
 	 * 
 	 * @param player
 	 *            die ingelogd is via evnt
+	 * @return return de zo juist gemakte pirate
 	 */
-	public void loadData(EntityPlayer player) {
+	public Pirate loadData(EntityPlayer player) {
 		ResultSet rs = null;
 		try {
 			if (super.isGebruiktDB()) {
@@ -54,14 +55,17 @@ public class PirateHandler extends FileHandler {
 						piraat.setCrew(crew);
 					}
 				}
+				return piraat;
 			} else {
 				// bestaad niet
 				Pirate piraat = new Pirate(getMain(), player);
 				getMain().getOnlinePirates().add(piraat);
+				return piraat;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	/**

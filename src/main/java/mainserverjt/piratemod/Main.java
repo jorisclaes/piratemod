@@ -9,10 +9,12 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import mainserverjt.piratemod.command.CommandMain;
+import mainserverjt.piratemod.command.permissions.PermissionsHelper;
 import mainserverjt.piratemod.crew.Crew;
 import mainserverjt.piratemod.crew.Pirate;
 import mainserverjt.piratemod.db.CrewHandler;
 import mainserverjt.piratemod.db.FileHandler;
+import mainserverjt.piratemod.db.PermmisionHandler;
 import mainserverjt.piratemod.db.PirateHandler;
 import mainserverjt.piratemod.db.SettingsHandler;
 import mainserverjt.piratemod.event.PlayerEvent;
@@ -32,6 +34,7 @@ public class Main {
 	public SettingsHandler settingsHandler;
 	public CrewHandler crewHandler;
 	public PirateHandler pirateHandler;
+	public PermmisionHandler permissionHandler;
 	
 	
 	@EventHandler
@@ -43,6 +46,8 @@ public class Main {
 		settingsHandler = new SettingsHandler(this);
 		crewHandler = new CrewHandler(this);
 		pirateHandler = new PirateHandler(this);
+		permissionHandler = new PermmisionHandler(this);
+		PermissionsHelper.initPermisions();
 		FMLCommonHandler.instance().bus().register(new PlayerEvent(this));
 		System.out.println("Loading dataus DONE");
 	}

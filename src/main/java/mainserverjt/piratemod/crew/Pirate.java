@@ -19,7 +19,7 @@ public class Pirate{
 	//private Gear gear;
 	private float level;
 	private float xpLvl;
-	private int permissionLvl;
+	private float permissionLvl;
 	private EntityPlayer player;
 	
 	/**
@@ -130,7 +130,7 @@ public class Pirate{
 	 * returnt de piraat zij permissie lvl
 	 * @return 0 == kan niets
 	 */
-	public int getPermissionLvl() {
+	public float getPermissionLvl() {
 		return permissionLvl;
 	}
 
@@ -138,7 +138,7 @@ public class Pirate{
 	 * set de permissie lvls van de piraat
 	 * @param permissionLvl int > 0
 	 */
-	public void setPermissionLvl(int permissionLvl) {
+	public void setPermissionLvl(float permissionLvl) {
 		this.permissionLvl = permissionLvl;
 	}
 	

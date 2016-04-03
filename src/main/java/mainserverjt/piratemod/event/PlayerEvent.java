@@ -6,6 +6,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import mainserverjt.piratemod.Main;
 import mainserverjt.piratemod.command.ChatColor;
+import mainserverjt.piratemod.command.permissions.PermissionsHelper;
 import mainserverjt.piratemod.crew.Pirate;
 import mainserverjt.piratemod.db.CrewHandler;
 import mainserverjt.piratemod.db.PirateHandler;
@@ -29,7 +30,21 @@ public class PlayerEvent {
 			}
 		}
 		ChatColor.sendBroadcastMessage(ChatColor.prefix + "player toegevoegd");
-		main.pirateHandler.loadData(pl);
+		Pirate p = main.pirateHandler.loadData(pl);
+		String[] permisions = main.permissionHandler.getPermissions(pl.getDisplayName());
+		if(permisions != null){
+			for(String s : permisions){
+				if(p != null){
+					float f = PermissionsHelper.permissions.get(s);
+					if(p.getPermissionLvl() < f){
+						p.setPermissionLvl(f);
+					}
+				}else{
+					System.out.println("player read fout: Permission set FALED");
+					break;
+				}
+			}
+		}
 		System.out.println("lenth: " + main.getOnlinePirates().size());
 	}
 	
