@@ -175,21 +175,6 @@ public class Pirate{
 	public EntityPlayer getPlayer(){
 		return player;
 	}
-	
-	/**
-	 * gaat kijken of de speler al in de DB stont met data
-	 * zo ja haalt de ze alle informaie af van de player
-	 */
-	public void haalOpData(){
-		throw new UnsupportedOperationException("haal op moet nog geschreven worden");
-	}
-	
-	/**
-	 * gaat de data die de player heeft opslaan in de DB
-	 */
-	public void saveData(){
-		throw new UnsupportedOperationException("save data moet nog geschreven worden");
-	}
 
 	/**
 	 * returnt het huidig xp LVL van de piraat
