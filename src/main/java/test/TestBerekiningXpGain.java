@@ -6,7 +6,7 @@ public class TestBerekiningXpGain {
 		int lvlTegne = 5;
 		int regenstadnerXp = 25124855;
 		int eigenLvl = 1;
-		double f = (regenstadnerXp/100.0)*((lvlTegne/100.0)*eigenLvl);
+		double f = (regenstadnerXp/100.0)*(eigenLvl/100.0)*lvlTegne;
 		System.out.println(f);
 	}
 
