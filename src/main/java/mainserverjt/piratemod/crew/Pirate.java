@@ -33,6 +33,7 @@ public class Pirate{
 		this.naam = player.getDisplayName();
 		this.uniekID = player.getUniqueID();
 		this.player = player;
+		this.xpLvl = 1;
 	}
 
 	/**
@@ -195,15 +196,28 @@ public class Pirate{
 	 * @return xpLvl float
 	 */
 	public float getXpLvl() {
-		return xpLvl;
+		return (int) (xpLvl/100 +0.5)*100;
 	}
 
 	/**
-	 * sethet huidig xp LVL van de piraat
+	 * set het huidig xp LVL van de piraat
 	 * @param xpLvl als foat
 	 */
 	public void setXpLvl(float xpLvl) {
 		this.xpLvl = xpLvl;
+		float x= 100;
+		int y = 2;
+		for(int i = 0; i < 100; i++){
+			float f =(float) ((y/x)*((y+x)*y*55.55555)) ;
+			x = f;
+			y += 1;
+			if((i+1) == level){
+				if(this.xpLvl >= f){
+					setLevel(getLevel()+1F);
+					setXpLvl(getLevel()-f);
+				}
+			}
+		}
 	}
 	
 	
