@@ -5,6 +5,7 @@ import java.util.UUID;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import mainserverjt.piratemod.Main;
+import mainserverjt.piratemod.command.ChatColor;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class Pirate{
@@ -203,6 +204,14 @@ public class Pirate{
 				}
 			}
 		}
+	}
+	
+	/**
+	 * stuurd een bericht naar deze player
+	 * @param message
+	 */
+	public void sendMessage(String message){
+		ChatColor.sendPrivateMessage(player, message);
 	}
 	
 	

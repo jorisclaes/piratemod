@@ -11,7 +11,7 @@ public class HelpCommand {
 
 	private static Main main;
 	
-	public static final float UseLrvl = PermissionsHelper.f_helpCommand;
+	public static final float UseLvl = PermissionsHelper.f_helpCommand;
 	private static String[] bestaandeCommands = {
 		"/pm register"	
 	};
@@ -26,7 +26,7 @@ public class HelpCommand {
 					break;
 				}
 			}
-			if(p != null && !p.canPirateUseCommand(PermissionsHelper.f_helpCommand)){
+			if(p != null && !p.canPirateUseCommand(UseLvl)){
 				ChatColor.sendPrivateMessage(p_71515_1_, ChatColor.prefix + ChatColor.rood + "U Dont Have Permission");
 				return;
 			}

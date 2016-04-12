@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import akka.io.Tcp.Register;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import mainserverjt.piratemod.Main;
 import mainserverjt.piratemod.command.commands.HelpCommand;
+import mainserverjt.piratemod.command.commands.RegisterCommand;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
@@ -25,6 +27,7 @@ public class CommandMain extends CommandBase implements ICommand {
 		this.commands.add("pirateMod");
 		this.commands.add("pm");
 		HelpCommand.setMain(main);
+		RegisterCommand.setMain(main);
 	}
 
 	@Override
@@ -56,6 +59,8 @@ public class CommandMain extends CommandBase implements ICommand {
 		if(p_71515_2_.length >= 1){
 			if(p_71515_2_[0].equalsIgnoreCase("help")){
 				HelpCommand.processCommand(p_71515_1_, removeIndexUntil(1, p_71515_2_));
+			}else if (p_71515_2_[0].equalsIgnoreCase("register")){
+				RegisterCommand.procesCommand(p_71515_1_, removeIndexUntil(1, p_71515_2_));
 			}
 		}else{
 			ChatColor.sendPrivateMessage(p_71515_1_, ChatColor.prefix + ChatColor.rood + "Use /pm help");
@@ -80,7 +85,7 @@ public class CommandMain extends CommandBase implements ICommand {
 		return false;
 	}
 	
-	private String[] removeIndexUntil(int index, String[] args){
+	public String[] removeIndexUntil(int index, String[] args){
 		if(args.length == index)return null;
 		String[] hulp = new String[((args.length - 1) - index)];
 		int j = 0;
