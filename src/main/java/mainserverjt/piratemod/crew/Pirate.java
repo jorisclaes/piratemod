@@ -7,6 +7,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import mainserverjt.piratemod.Main;
 import mainserverjt.piratemod.command.ChatColor;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.server.MinecraftServer;
 
 public class Pirate{
 	
@@ -26,8 +27,7 @@ public class Pirate{
 	/**
 	 * maakt een nieuwe piraat aan
 	 * @param main main variable
-	 * @param naam de naam van di piraat
-	 * @param unikId is de player zijn unik id
+	 * @param player player die ingelogd is
 	 */
 	public Pirate(Main main, EntityPlayer player){
 		this.main = main;
@@ -138,7 +138,7 @@ public class Pirate{
 
 	/**
 	 * set de permissie lvls van de piraat
-	 * @param permissionLvl int > 0
+	 * @param permissionLvl int groter dan 0
 	 */
 	public void setPermissionLvl(float permissionLvl) {
 		this.permissionLvl = permissionLvl;
@@ -163,9 +163,9 @@ public class Pirate{
 	
 	/**
 	 * returnt de piraat zijn naam
-	 * @return
+	 * @return String naam
 	 */
-	private final String getNaam(){
+	public final String getNaam(){
 		return this.naam;
 	}
 	
@@ -208,7 +208,7 @@ public class Pirate{
 	
 	/**
 	 * stuurd een bericht naar deze player
-	 * @param message
+	 * @param message de melding die je wilt sturen
 	 */
 	public void sendMessage(String message){
 		ChatColor.sendPrivateMessage(player, message);

@@ -104,8 +104,8 @@ public class PermmisionHandler extends FileHandler{
 	
 	/**
 	 * returnt de personen in deze groep
-	 * @param groepNaam
-	 * @return String[]
+	 * @param groepNaam naam van de groep
+	 * @return String[] de personen in de groep
  	 */
 	public String[] getUsersInGroup(String groepNaam){
 		return groepen.get(groepNaam);
@@ -114,8 +114,8 @@ public class PermmisionHandler extends FileHandler{
 	/**
 	 * returnt de permissions per Persoon,
 	 * als de groep naam is megegeven dan returnt die de permissons van de groep
-	 * @param Persoon
-	 * @return String[]
+	 * @param Persoon de persoon waarvan je wilt opvragen
+	 * @return String[] de permissions die die heeft
 	 */
 	public String[] getPermissions(String Persoon){
 		return permissions.get(Persoon);
@@ -124,7 +124,7 @@ public class PermmisionHandler extends FileHandler{
 	/**
 	 * returnt alle groep namen die er zijn
 	 * dit is nodig om de users op te vragen
-	 * @return
+	 * @return alle groeppen die er zijn las ArryList
 	 */
 	public ArrayList<String> getGroeppen(){
 		return groepNamen;

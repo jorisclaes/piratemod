@@ -24,7 +24,7 @@ public class SqlLileJDBC {
 	
 	/**
 	 * gaat een qry uitvoeren
-	 * @param sql de sql selectie als String
+	 * @param SQL de sql selectie als String
 	 * @return 
 	 * 		als gelukt is returnt die een ResultSet van de data
 	 * 		en anders een null

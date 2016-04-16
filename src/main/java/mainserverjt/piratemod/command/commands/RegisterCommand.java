@@ -1,5 +1,7 @@
 package mainserverjt.piratemod.command.commands;
 
+import java.util.ArrayList;
+
 import mainserverjt.piratemod.Main;
 import mainserverjt.piratemod.command.ChatColor;
 import mainserverjt.piratemod.command.permissions.PermissionsHelper;
@@ -47,22 +49,15 @@ public class RegisterCommand {
 								}
 							}
 						}
-					}else if(args.length == 4){
+					}else if(args.length == 5){
 						//nieuwe inschrijveing voor turnooi
-						if(!p.canPirateUseCommand(PermissionsHelper.f_registerCommandTurnooi)){
-							p.sendMessage(ChatColor.prefix + ChatColor.rood + "You Don't Have Permission");
-							return;
-						}
+						
 						//kij of iedereeen onilne is
 						
 						//voeg groep toe
-						
-						//stuurn massage naar iedereen
-						
-						return;
 					}
 				}
-				p.sendMessage(ChatColor.prefix + ChatColor.rood + "Use /pm register <Player1> <Player2> <Player3> <Player3> To Register Turnement");
+				p.sendMessage(ChatColor.prefix + ChatColor.rood + "Use /pm register <GroupName> <Player1> <Player2> <Player3> <Player3> To Register Turnement");
 				p.sendMessage(ChatColor.prefix + ChatColor.rood + "Use /pm register crew <clanName> To Register A New Crew");
 			}else{
 				//heeft geen toesteming

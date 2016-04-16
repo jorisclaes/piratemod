@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import mainserverjt.piratemod.Main;
 import mainserverjt.piratemod.command.ChatColor;
+import mainserverjt.piratemod.crew.Pirate;
+import mainserverjt.piratemod.db.tabelInit.PirateTable;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import scala.concurrent.Channel.LinkedList;
@@ -12,8 +14,7 @@ import scala.concurrent.Channel.LinkedList;
 public class Queue {
 	
 	public Main main;
-	private HashMap<String, ICommandSender[]> groepen;
-	private HashMap<String, Integer> clanId;
+	private HashMap<String, ArrayList> groepen;
 	private static ChatColor color;
 	
 	private boolean quiInschrijvingenOpen;
@@ -22,8 +23,7 @@ public class Queue {
 	
 	public Queue(Main main){
 		this.main = main;
-		groepen = new HashMap<String, ICommandSender[]>();
-		clanId = new HashMap<String, Integer>();
+		groepen = new HashMap<String, ArrayList>();
 		timerOpen = 20;//in sec
 		timer = new Timer(main);
 	}
@@ -50,29 +50,28 @@ public class Queue {
 	 * zet de personen in een groep
 	 * 
 	 * returnt false als de goep of iemand in de groep al eder voorkomt
-	 * @param pesonen ICommandSender[]
+	 * en stuurt een bericht naar de mensen die juist zijn toegevoegd
+	 * 
+	 * @param tijdelijk ArrayList
 	 * @param groepnaam String
 	 * @param sender de persoon die iedereen heeft toegevoegt
-	 * @param clanId is het id van de clan waar de personen in zitten
 	 * @return return true als het gelukt is
 	 */
-	public boolean addGroep(ICommandSender[] personen, String groepnaam, ICommandSender sender, int clanID){
+	public boolean addGroep(ArrayList<Pirate> tijdelijk, String groepnaam, Pirate sender){
 		if (!groepen.containsKey(groepnaam)){
-			for(ICommandSender[] g : groepen.values()){
-				for(ICommandSender p : g){
-					EntityPlayer player = (EntityPlayer) p;
-					for(ICommandSender check : personen){
-						EntityPlayer checkPlayer = (EntityPlayer) check;
-						if(player.getUniqueID().equals(checkPlayer.getUniqueID())){
+			for(ArrayList<Pirate> g : groepen.values()){
+				for(Pirate p : g){
+					for(Pirate check : tijdelijk){
+						EntityPlayer checkPlayer = check.getPlayer();
+						if(p.getUniekID().equals(checkPlayer.getUniqueID())){
 							return false;
 						}
 					}
 				}
 			}
-			groepen.put(groepnaam, personen);
-			clanId.put(groepnaam, clanID);
-			String text = color.prefix + "U Have Bin Added To Group " + color.groen + color.wit + " By " + color.groen + sender.getCommandSenderName();
-			color.sendPrivateMessageToMultiple(personen, text);
+			groepen.put(groepnaam, tijdelijk);
+			String text = color.prefix + "U Have Bin Added To Group " + color.groen + color.wit + " By " + color.groen + sender.getNaam();
+			color.sendPrivateMessageToMultiple(tijdelijk, text);
 			return true;
 		}
 		return false;
@@ -80,16 +79,18 @@ public class Queue {
 	
 	/**
 	 * verwijderd een groep als die bestaad
+	 * en stuurd een bericht naar iedereen in de groep
+	 * returnt true als het gelukt is
 	 * 
 	 * @param groepnaam van de groep die verwijdert wordt
+	 * @param sender is de persoon die het comando heeft verstuurd
 	 * @return returnt true als het gelukt is anders false
 	 */
-	public boolean removeGroep(String groepnaam, ICommandSender sender){
-		ICommandSender[] groep = null;
+	public boolean removeGroep(String groepnaam, Pirate sender){
+		ArrayList groep = null;
 		groep = groepen.remove(groepnaam);
 		if(groep != null){
-			clanId.remove(groepnaam);
-			String text = color.prefix + color.rood +"Your Group Has Bin Removed By " + color.groen + sender.getCommandSenderName();
+			String text = color.prefix + color.rood +"Your Group Has Bin Removed By " + color.groen + sender.getNaam();
 			color.sendPrivateMessageToMultiple(groep, text);
 			return true;
 		}

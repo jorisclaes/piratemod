@@ -44,9 +44,10 @@ public class SettingsHandler extends FileHandler{
 	private void createFile(){
 		String content = 
 				"GebruikDB: 'false'\n"+
-				"\tURL: ''\n"+
-				"\tuserName: ''\n"+
-				"\tpass: ''";
+						"\tURL: ''\n"+
+						"\tuserName: ''\n"+
+						"\tpass: ''\n"+
+				"";
 		super.saveFile(fileName, content);
 		super.setGebruiktDB(false);
 		SqlLileJDBC.maakConnectie();

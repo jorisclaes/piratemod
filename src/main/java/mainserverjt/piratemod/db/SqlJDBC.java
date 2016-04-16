@@ -14,7 +14,7 @@ public class SqlJDBC {
 	/**
 	 * gaat connectie leggen met de sql server
 	 * VERGEET JE CONNECTIE NIET TE SLUITEN
-	 * @throws SQLException 
+	 * @throws SQLException obj met error in
 	 */
 	public static void maakConnectie() throws SQLException{
 		try {
@@ -35,9 +35,7 @@ public class SqlJDBC {
 	/**
 	 * gaat een qry uitvoeren
 	 * @param sql de sql selectie als String
-	 * @return 
-	 * 		altijd da uit komst van da sql
-	 * @throws SQLException 
+	 * @return altijd de uit komst van da sql
 	 */
 	public static ResultSet voerQryUit(String sql){
 		Statement stm = null;
@@ -61,7 +59,6 @@ public class SqlJDBC {
 	 * 
 	 * als je 5 rijen aanpast zou die 5 moetten returnen
 	 * zo niet heeft die niet alle rijen gedaan
-	 * @throws SQLException 
 	 */
 	public static int voerUpdateUit(String sql){
 		int cont = -1;
@@ -80,7 +77,7 @@ public class SqlJDBC {
 	
 	/**
 	 * gaat de connectie sluiten met de sql server
-	 * @throws SQLException 
+	 * @throws SQLException obj met error in
 	 */
 	public static void sluitConnectie() throws SQLException{
 		c.close();

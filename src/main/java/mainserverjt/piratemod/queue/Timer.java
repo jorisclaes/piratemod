@@ -26,14 +26,14 @@ public class Timer extends Thread implements Runnable {
 	
 	/**
 	 * returnt de tijd dat de timer nog wacht
-	 * @return
+	 * @return tijd als int
 	 */
 	public int getTimer(){
 		return tijd;
 	}
 	
 	/**
-	 * zet of tde timet mag lopen of niet
+	 * zet of de timet mag lopen of niet
 	 * @param flag true == start
 	 * @return returnt gelukt of niet
 	 */
@@ -43,6 +43,7 @@ public class Timer extends Thread implements Runnable {
 			start();
 			return true;
 		}else{
+			this.run = false;
 			return false;
 		}
 	}

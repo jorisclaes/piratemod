@@ -1,7 +1,10 @@
 package mainserverjt.piratemod.command;
 
+import java.util.ArrayList;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import mainserverjt.piratemod.Main;
+import mainserverjt.piratemod.crew.Pirate;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
@@ -167,12 +170,12 @@ public class ChatColor {
 	
 	/**
 	 * stuurt een bericht naar meerderemensen privé
-	 * @param p_71515_3_ de groep van persoonen
+	 * @param tijdelijk de groep van persoonen
 	 * @param message de bootschap
 	 */
-	public static void sendPrivateMessageToMultiple(ICommandSender[] p_71515_3_, String message){
-		for(ICommandSender s : p_71515_3_){
-			sendPrivateMessage(s, message);
+	public static void sendPrivateMessageToMultiple(ArrayList<Pirate> tijdelijk, String message){
+		for(Pirate s : tijdelijk){
+			sendPrivateMessage(s.getPlayer(), message);
 		}
 	}
 }

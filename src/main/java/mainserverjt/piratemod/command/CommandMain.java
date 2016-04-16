@@ -28,6 +28,7 @@ public class CommandMain extends CommandBase implements ICommand {
 		this.commands.add("pm");
 		HelpCommand.setMain(main);
 		RegisterCommand.setMain(main);
+		RemoveCommand.setMain(main);
 	}
 
 	@Override
@@ -61,6 +62,8 @@ public class CommandMain extends CommandBase implements ICommand {
 				HelpCommand.processCommand(p_71515_1_, removeIndexUntil(1, p_71515_2_));
 			}else if (p_71515_2_[0].equalsIgnoreCase("register")){
 				RegisterCommand.procesCommand(p_71515_1_, removeIndexUntil(1, p_71515_2_));
+			}else if(p_71515_2_[0].equalsIgnoreCase("remove")){
+				RemoveCommand.procesCommand(p_71515_1_, removeIndexUntil(1, p_71515_2_));
 			}
 		}else{
 			ChatColor.sendPrivateMessage(p_71515_1_, ChatColor.prefix + ChatColor.rood + "Use /pm help");

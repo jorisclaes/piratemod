@@ -27,7 +27,6 @@ public class Crew {
 	 * maakt een crew aan
 	 * @param main main variable 
 	 * @param crewid id van crew
-	 * @param leden de lijst van personen behoordende tot de crew
 	 */
 	public Crew(Main main,int crewid){
 		this.main = main;
@@ -66,8 +65,8 @@ public class Crew {
 	}
 
 	/**
-	 * zet de variable als gxl
-	 * @param gemiddeldeXpLvl
+	 * set de variable als gxl
+	 * @param gemiddeldeXpLvl het xp lvl
 	 */
 	public void setGemiddeldeXpLvl(double gemiddeldeXpLvl) {
 		this.gemiddeldeXpLvl = gemiddeldeXpLvl;
